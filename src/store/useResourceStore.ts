@@ -3,12 +3,19 @@ import type { Material, PopulatedResourceItem, ResourceItem } from '../types/Res
 import materialsData from '../data/materials.json'
 
 const MOCK_MATERIALS = materialsData as Material[];
+import collegeCampus from '../knowledge/templates/college-campus.json';
+import manufacturingPlant from '../knowledge/templates/manufacturing-plant.json';
+
+const templates: Record<string, any> = {
+  'college-campus': collegeCampus,
+  'manufacturing-plant': manufacturingPlant
+};
 
 interface ResourceStore {
   resources: ResourceItem[];
   addResource: (resource: Omit<ResourceItem, 'id' | 'addedAt'>) => void;
   removeResource: (id: string) => void;
-  loadDemoData: () => void;
+  loadDemoData: (templateId?: string) => void;
   
   // Selectors
   getPopulatedResources: () => PopulatedResourceItem[];
@@ -53,13 +60,8 @@ export const useResourceStore = create<ResourceStore>((set, get) => ({
       resources: state.resources.filter((r) => r.id !== id)
     })),
 
-  loadDemoData: () => set({
-    resources: [
-      { id: '1', materialId: 'mat_1', quantity: 250, unit: 'kg', condition: 'Excellent', addedAt: new Date().toISOString() },
-      { id: '2', materialId: 'mat_4', quantity: 80, unit: 'kg', condition: 'Excellent', addedAt: new Date().toISOString() },
-      { id: '3', materialId: 'mat_2', quantity: 120, unit: 'kg', condition: 'Needs Segregation', addedAt: new Date().toISOString() },
-      { id: '4', materialId: 'mat_3', quantity: 40, unit: 'kg', condition: 'Excellent', addedAt: new Date().toISOString() }
-    ]
+  loadDemoData: (templateId = 'college-campus') => set({
+    resources: templates[templateId] || templates['college-campus']
   }),
     
   getPopulatedResources: () => {
