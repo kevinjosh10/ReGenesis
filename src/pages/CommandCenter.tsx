@@ -150,7 +150,7 @@ export function CommandCenter() {
         </section>
 
         {/* Main Content Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           
           {/* Resource Inventory List */}
           <div className="lg:col-span-2 space-y-4">
@@ -161,7 +161,7 @@ export function CommandCenter() {
               </Button>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-2 pb-2 styled-scrollbar">
               {resources.map(res => {
                 const Icon = CategoryIcons[res.material.category] || Package;
                 return (
@@ -211,7 +211,7 @@ export function CommandCenter() {
           </div>
 
           {/* Intelligence Panel */}
-          <div className="space-y-4">
+          <div className="space-y-4 sticky top-24">
             <h3 className="text-lg font-medium">Resource Intelligence</h3>
             <Card className="bg-secondary/30 shadow-none border-none">
               <CardHeader>
