@@ -7,21 +7,25 @@ import { VentureStudio } from "./pages/VentureStudio"
 import { ResourceIntelligence } from "./pages/ResourceIntelligence"
 import { ExecutiveReport } from "./pages/ExecutiveReport"
 import { DemoControls } from "./components/ui/DemoControls"
+import { IntroSplash } from "./components/ui/IntroSplash"
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<CommandCenter />} />
-        <Route path="/opportunities" element={<OpportunityEngine />} />
-        <Route path="/composer" element={<ResourceComposer />} />
-        <Route path="/studio" element={<VentureStudio />} />
-        <Route path="/studio/:id" element={<VentureStudio />} />
-        <Route path="/intelligence" element={<ResourceIntelligence />} />
-        <Route path="/report" element={<ExecutiveReport />} />
-      </Routes>
-      <DemoControls />
-    </Router>
+    <>
+      <IntroSplash />
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboard" element={<CommandCenter />} />
+          <Route path="/opportunities" element={<OpportunityEngine />} />
+          <Route path="/composer" element={<ResourceComposer />} />
+          <Route path="/studio" element={<VentureStudio />} />
+          <Route path="/studio/:id" element={<VentureStudio />} />
+          <Route path="/intelligence" element={<ResourceIntelligence />} />
+          <Route path="/report" element={<ExecutiveReport />} />
+        </Routes>
+        <DemoControls />
+      </Router>
+    </>
   )
 }
