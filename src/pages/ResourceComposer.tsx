@@ -132,7 +132,7 @@ export function ResourceComposer() {
             
             {/* Mixing Tray */}
             <div className="p-6 rounded-2xl border bg-card relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-blue-500 to-green-500 opacity-50" />
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-emerald-500 to-teal-500 opacity-50" />
               <h3 className="text-lg font-medium mb-4">Mixing Tray</h3>
               
               <div className="min-h-[120px] p-6 rounded-xl bg-secondary/30 border border-dashed border-muted-foreground/30 flex flex-wrap gap-3 items-center justify-center relative">
@@ -176,7 +176,7 @@ export function ResourceComposer() {
                   onClick={handleGenerate}
                   disabled={selectedMixerCategories.length === 0}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <Sparkles className="w-4 h-4 relative z-10" /> 
                   <span className="relative z-10">Generate Opportunities</span>
                 </Button>

@@ -46,7 +46,7 @@ export function LandingPage() {
           
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance leading-tight">
             Don't Manage Waste. <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-600">
               Discover Wealth.
             </span>
           </h1>
@@ -96,8 +96,8 @@ export function LandingPage() {
           >
             <Card className="bg-card/50 backdrop-blur-sm border-muted/50 hover:border-primary/30 transition-colors h-full">
               <CardContent className="pt-6 space-y-4">
-                <div className="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                  <Factory className="w-6 h-6 text-blue-500" />
+                <div className="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                  <Factory className="w-6 h-6 text-emerald-500" />
                 </div>
                 <h3 className="text-xl font-semibold">Manufacturing Discovery</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -142,7 +142,7 @@ export function LandingPage() {
                 By bridging the gap between waste generation and product manufacturing, we empower businesses to transition to a circular economy where sustainability is not a compromise, but a competitive advantage.
               </p>
             </div>
-            <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center border border-muted/50 overflow-hidden">
+            <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-emerald-500/20 flex items-center justify-center border border-muted/50 overflow-hidden">
               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
               <Leaf className="w-32 h-32 text-primary opacity-80" />
             </div>
@@ -152,7 +152,7 @@ export function LandingPage() {
         {/* Platform Section */}
         <section id="platform" className="mt-32 pt-20 border-t border-muted/30 text-left max-w-5xl mx-auto">
           <div className="space-y-6 text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-blue-500/10 text-blue-500 border-blue-500/20">
+            <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-emerald-500/10 text-emerald-500 border-emerald-500/20">
               The Platform
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">An End-to-End Circular Engine</h2>
@@ -182,8 +182,8 @@ export function LandingPage() {
             </Card>
             <Card className="bg-card/50 backdrop-blur-sm border-muted/50">
               <CardContent className="p-8 space-y-4">
-                <div className="w-10 h-10 rounded bg-blue-500/10 flex items-center justify-center mb-6">
-                  <TrendingUp className="w-5 h-5 text-blue-500" />
+                <div className="w-10 h-10 rounded bg-emerald-500/10 flex items-center justify-center mb-6">
+                  <TrendingUp className="w-5 h-5 text-emerald-500" />
                 </div>
                 <h3 className="text-xl font-semibold">3. Venture Studio</h3>
                 <p className="text-muted-foreground">Transform a product idea into a business plan. View required machinery, capital investment, estimated revenue, and break-even timelines.</p>
@@ -210,7 +210,7 @@ export function LandingPage() {
                 <div className="text-sm font-medium text-muted-foreground">Avg. WWI Score</div>
               </div>
               <div className="bg-card border rounded-2xl p-6 text-center space-y-2 shadow-sm">
-                <div className="text-4xl font-bold text-blue-500">60%</div>
+                <div className="text-4xl font-bold text-emerald-500">60%</div>
                 <div className="text-sm font-medium text-muted-foreground">Higher Margins</div>
               </div>
               <div className="bg-card border rounded-2xl p-6 text-center space-y-2 shadow-sm">

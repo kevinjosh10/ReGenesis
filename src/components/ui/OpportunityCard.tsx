@@ -97,7 +97,7 @@ export function OpportunityCard({ opportunity, isBest = false }: OpportunityCard
                     </Card>
                     <Card className="bg-card shadow-none">
                       <CardContent className="p-4 flex items-start gap-3">
-                        <Factory className="w-8 h-8 text-blue-500 mt-1" />
+                        <Factory className="w-8 h-8 text-emerald-500 mt-1" />
                         <div>
                           <div className="font-semibold text-sm">Action Plan</div>
                           <div className="text-xs text-muted-foreground mt-1">

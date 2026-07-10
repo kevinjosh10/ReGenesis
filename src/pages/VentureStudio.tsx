@@ -156,7 +156,7 @@ export function VentureStudio() {
             <div className="grid md:grid-cols-2 gap-8">
               {/* Required Machinery */}
               <section className="space-y-4">
-                <h3 className="text-xl font-semibold flex items-center gap-2"><Factory className="w-5 h-5 text-blue-500" /> Required Machinery</h3>
+                <h3 className="text-xl font-semibold flex items-center gap-2"><Factory className="w-5 h-5 text-emerald-500" /> Required Machinery</h3>
                 <Card className="shadow-none">
                   <CardContent className="p-6">
                     <ul className="space-y-4">

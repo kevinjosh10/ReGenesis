@@ -113,7 +113,7 @@ export function CommandCenter() {
             <Card className="bg-card shadow-none">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Manufacturing Potential</CardTitle>
-                <Factory className="h-4 w-4 text-blue-500" />
+                <Factory className="h-4 w-4 text-emerald-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">High</div>
@@ -233,7 +233,7 @@ export function CommandCenter() {
                     <span className="font-medium">32%</span>
                   </div>
                   <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                    <div className="h-full bg-blue-500" style={{ width: '32%' }} />
+                    <div className="h-full bg-emerald-500" style={{ width: '32%' }} />
                   </div>
                 </div>
                 <div className="space-y-2">

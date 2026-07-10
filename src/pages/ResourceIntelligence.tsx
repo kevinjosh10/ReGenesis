@@ -131,7 +131,7 @@ export function ResourceIntelligence() {
             <Card className="shadow-none">
               <CardHeader className="pb-2 flex flex-row items-center justify-between">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Highest Value Resource</CardTitle>
-                <TrendingUp className="w-4 h-4 text-blue-500" />
+                <TrendingUp className="w-4 h-4 text-emerald-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-xl font-bold">Plastic</div>
