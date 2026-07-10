@@ -211,51 +211,55 @@ export function CommandCenter() {
           </div>
 
           {/* Intelligence Panel */}
-          <div className="space-y-4 sticky top-24">
+          <div className="space-y-4 sticky top-20">
             <h3 className="text-lg font-medium">Resource Intelligence</h3>
-            <Card className="bg-secondary/30 shadow-none border-none">
-              <CardHeader>
-                <CardTitle className="text-base flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-primary" /> Key Observation
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm leading-relaxed text-muted-foreground">
-                <span className="font-medium text-foreground">Plastic</span> contributes <span className="font-medium text-foreground">46%</span> of your total resource value. Segregating mixed e-waste could increase total value by 15%.
-              </CardContent>
-            </Card>
-
             <Card className="shadow-none">
-              <CardHeader>
-                <CardTitle className="text-sm font-medium">Category Breakdown</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Plastic</span>
-                    <span className="font-medium">46%</span>
+              <CardContent className="p-4 space-y-5">
+                
+                {/* Key Observation */}
+                <div className="bg-secondary/40 p-3 rounded-lg border border-secondary">
+                  <div className="text-sm font-medium flex items-center gap-2 mb-1.5">
+                    <AlertTriangle className="w-4 h-4 text-primary" /> Key Observation
                   </div>
-                  <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                    <div className="h-full bg-primary" style={{ width: '46%' }} />
+                  <div className="text-sm leading-relaxed text-muted-foreground">
+                    <span className="font-medium text-foreground">Plastic</span> contributes <span className="font-medium text-foreground">46%</span> of total value. Segregating e-waste could add 15%.
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Metal</span>
-                    <span className="font-medium">32%</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-500" style={{ width: '32%' }} />
+
+                {/* Category Breakdown */}
+                <div>
+                  <div className="text-sm font-medium mb-3">Category Breakdown</div>
+                  <div className="space-y-3">
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs">
+                        <span className="text-muted-foreground">Plastic</span>
+                        <span className="font-medium">46%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                        <div className="h-full bg-primary" style={{ width: '46%' }} />
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs">
+                        <span className="text-muted-foreground">Metal</span>
+                        <span className="font-medium">32%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                        <div className="h-full bg-emerald-500" style={{ width: '32%' }} />
+                      </div>
+                    </div>
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs">
+                        <span className="text-muted-foreground">Other</span>
+                        <span className="font-medium">22%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                        <div className="h-full bg-muted-foreground/30" style={{ width: '22%' }} />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Other</span>
-                    <span className="font-medium">22%</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                    <div className="h-full bg-muted-foreground" style={{ width: '22%' }} />
-                  </div>
-                </div>
+
               </CardContent>
             </Card>
           </div>
