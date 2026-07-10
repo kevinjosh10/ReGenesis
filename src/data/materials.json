@@ -1,0 +1,37 @@
+[
+  {
+    "id": "mat_1",
+    "name": "Plastic Bottles (PET)",
+    "category": "Plastic",
+    "baseValuePerKg": 18,
+    "recoverability": 98
+  },
+  {
+    "id": "mat_2",
+    "name": "Aluminum Scraps",
+    "category": "Metal",
+    "baseValuePerKg": 120,
+    "recoverability": 100
+  },
+  {
+    "id": "mat_3",
+    "name": "Cardboard Packaging",
+    "category": "Paper",
+    "baseValuePerKg": 5,
+    "recoverability": 90
+  },
+  {
+    "id": "mat_4",
+    "name": "Mixed E-Waste",
+    "category": "Electronic",
+    "baseValuePerKg": 300,
+    "recoverability": 85
+  },
+  {
+    "id": "mat_5",
+    "name": "Organic Food Waste",
+    "category": "Organic",
+    "baseValuePerKg": 2,
+    "recoverability": 95
+  }
+]

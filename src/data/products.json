@@ -1,0 +1,67 @@
+[
+  {
+    "id": "prod_1",
+    "name": "Plastic Lumber",
+    "category": "Construction",
+    "compatibleMaterials": ["Plastic"],
+    "estimatedRevenuePerUnit": 48000,
+    "investmentCostLevel": "Medium",
+    "investmentCostEstimate": 18000,
+    "demandLevel": "High",
+    "sustainabilityScore": 95,
+    "carbonSavedKg": 162,
+    "difficulty": "Medium"
+  },
+  {
+    "id": "prod_2",
+    "name": "Eco Bricks",
+    "category": "Construction",
+    "compatibleMaterials": ["Plastic", "Glass"],
+    "estimatedRevenuePerUnit": 26000,
+    "investmentCostLevel": "Low",
+    "investmentCostEstimate": 8000,
+    "demandLevel": "Medium",
+    "sustainabilityScore": 88,
+    "carbonSavedKg": 95,
+    "difficulty": "Easy"
+  },
+  {
+    "id": "prod_3",
+    "name": "Outdoor Bench",
+    "category": "Furniture",
+    "compatibleMaterials": ["Plastic", "Wood", "Metal"],
+    "estimatedRevenuePerUnit": 52000,
+    "investmentCostLevel": "High",
+    "investmentCostEstimate": 30000,
+    "demandLevel": "High",
+    "sustainabilityScore": 90,
+    "carbonSavedKg": 210,
+    "difficulty": "Hard"
+  },
+  {
+    "id": "prod_4",
+    "name": "Reusable Transport Boxes",
+    "category": "Packaging",
+    "compatibleMaterials": ["Plastic", "Paper"],
+    "estimatedRevenuePerUnit": 15000,
+    "investmentCostLevel": "Low",
+    "investmentCostEstimate": 5000,
+    "demandLevel": "High",
+    "sustainabilityScore": 85,
+    "carbonSavedKg": 40,
+    "difficulty": "Easy"
+  },
+  {
+    "id": "prod_5",
+    "name": "Organic Compost Bags",
+    "category": "Agriculture",
+    "compatibleMaterials": ["Organic"],
+    "estimatedRevenuePerUnit": 8000,
+    "investmentCostLevel": "Low",
+    "investmentCostEstimate": 2000,
+    "demandLevel": "Medium",
+    "sustainabilityScore": 98,
+    "carbonSavedKg": 50,
+    "difficulty": "Easy"
+  }
+]

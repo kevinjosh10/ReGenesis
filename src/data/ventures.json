@@ -1,0 +1,76 @@
+[
+  {
+    "productId": "prod_1",
+    "monthlyRevenue": 120000,
+    "monthlyProfit": 42000,
+    "initialInvestment": 75000,
+    "breakEvenMonths": 6,
+    "machines": ["Shredder", "Extruder", "Cooling Tank", "Cutting Machine"],
+    "customers": ["Schools", "Municipalities", "Furniture Companies", "Government"],
+    "risks": [
+      { "name": "Market Competition", "level": "Medium Risk" },
+      { "name": "Raw Material Quality", "level": "Low Risk" },
+      { "name": "Initial Investment", "level": "Medium Risk" },
+      { "name": "Technical Skill", "level": "Medium Risk" }
+    ],
+    "feasibility": "High"
+  },
+  {
+    "productId": "prod_2",
+    "monthlyRevenue": 60000,
+    "monthlyProfit": 25000,
+    "initialInvestment": 20000,
+    "breakEvenMonths": 4,
+    "machines": ["Mixer", "Molding Press", "Curing Oven"],
+    "customers": ["Construction Firms", "Local Contractors", "Landscapers"],
+    "risks": [
+      { "name": "Market Competition", "level": "High Risk" },
+      { "name": "Raw Material Quality", "level": "Low Risk" },
+      { "name": "Initial Investment", "level": "Low Risk" }
+    ],
+    "feasibility": "High"
+  },
+  {
+    "productId": "prod_3",
+    "monthlyRevenue": 150000,
+    "monthlyProfit": 50000,
+    "initialInvestment": 120000,
+    "breakEvenMonths": 8,
+    "machines": ["CNC Router", "Injection Molder", "Assembly Line"],
+    "customers": ["Parks Departments", "Real Estate Developers", "Hotels"],
+    "risks": [
+      { "name": "Market Competition", "level": "Medium Risk" },
+      { "name": "Initial Investment", "level": "High Risk" },
+      { "name": "Design & Prototyping", "level": "High Risk" }
+    ],
+    "feasibility": "Medium"
+  },
+  {
+    "productId": "prod_4",
+    "monthlyRevenue": 45000,
+    "monthlyProfit": 18000,
+    "initialInvestment": 15000,
+    "breakEvenMonths": 5,
+    "machines": ["Thermoforming Machine", "Die Cutter"],
+    "customers": ["Logistics Companies", "Retail Chains", "E-commerce"],
+    "risks": [
+      { "name": "Market Demand Shift", "level": "Low Risk" },
+      { "name": "Production Speed", "level": "Medium Risk" }
+    ],
+    "feasibility": "High"
+  },
+  {
+    "productId": "prod_5",
+    "monthlyRevenue": 30000,
+    "monthlyProfit": 12000,
+    "initialInvestment": 8000,
+    "breakEvenMonths": 3,
+    "machines": ["Composter", "Bagging Machine"],
+    "customers": ["Farmers", "Nurseries", "Home Gardeners"],
+    "risks": [
+      { "name": "Biological Contamination", "level": "Medium Risk" },
+      { "name": "Seasonal Demand", "level": "High Risk" }
+    ],
+    "feasibility": "High"
+  }
+]
