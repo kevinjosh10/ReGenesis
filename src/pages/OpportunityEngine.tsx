@@ -18,7 +18,8 @@ export function OpportunityEngine() {
   }, [getPopulatedResources, analyzeInventory])
 
   const bestOpportunity = discoveredOpportunities[0]
-  const otherOpportunities = discoveredOpportunities.slice(1)
+  const highPotential = discoveredOpportunities.slice(1, 3)
+  const emergingIdeas = discoveredOpportunities.slice(3)
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30">
@@ -82,19 +83,41 @@ export function OpportunityEngine() {
         ) : (
           <div className="space-y-8">
             
-            {/* The Best Opportunity (Hero Card) */}
+            {/* 🥇 Best Opportunity */}
             {bestOpportunity && (
               <section className="space-y-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">🥇</span>
+                  <h3 className="text-lg font-bold">Best Opportunity</h3>
+                </div>
                 <OpportunityCard opportunity={bestOpportunity} isBest={true} />
               </section>
             )}
 
-            {/* Other Discovered Opportunities */}
-            {otherOpportunities.length > 0 && (
-              <section className="space-y-4">
-                <h3 className="text-lg font-medium">Alternative Opportunities</h3>
+            {/* 🥈 High Potential */}
+            {highPotential.length > 0 && (
+              <section className="space-y-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">🥈</span>
+                  <h3 className="text-lg font-medium text-muted-foreground">High Potential</h3>
+                </div>
                 <div className="grid grid-cols-1 gap-4">
-                  {otherOpportunities.map(opp => (
+                  {highPotential.map(opp => (
+                    <OpportunityCard key={opp.product.id} opportunity={opp} />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* 🥉 Emerging Ideas */}
+            {emergingIdeas.length > 0 && (
+              <section className="space-y-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">🥉</span>
+                  <h3 className="text-lg font-medium text-muted-foreground">Emerging Ideas</h3>
+                </div>
+                <div className="grid grid-cols-1 gap-4 opacity-80 hover:opacity-100 transition-opacity">
+                  {emergingIdeas.map(opp => (
                     <OpportunityCard key={opp.product.id} opportunity={opp} />
                   ))}
                 </div>
