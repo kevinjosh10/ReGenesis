@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { HashRouter as Router, Routes, Route } from "react-router-dom"
 import { LandingPage } from "./pages/LandingPage"
 import { CommandCenter } from "./pages/CommandCenter"
 import { OpportunityEngine } from "./pages/OpportunityEngine"
@@ -10,7 +10,7 @@ import { DemoControls } from "./components/ui/DemoControls"
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<CommandCenter />} />
@@ -22,6 +22,6 @@ export default function App() {
         <Route path="/report" element={<ExecutiveReport />} />
       </Routes>
       <DemoControls />
-    </BrowserRouter>
+    </Router>
   )
 }
