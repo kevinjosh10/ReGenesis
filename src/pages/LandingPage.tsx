@@ -124,6 +124,128 @@ export function LandingPage() {
             </Card>
           </motion.div>
         </div>
+
+        {/* Vision Section */}
+        <section id="vision" className="mt-32 pt-20 border-t border-muted/30 text-left max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-primary/10 text-primary border-primary/20">
+                Our Vision
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Stop Managing Waste. Start Building Wealth.</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                For decades, organizations have viewed waste as a liability—something to be hidden, managed, and disposed of at a cost. ReGenesis flips this paradigm. We believe that every discarded material is a dormant asset waiting for the right manufacturing process.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                By bridging the gap between waste generation and product manufacturing, we empower businesses to transition to a circular economy where sustainability is not a compromise, but a competitive advantage.
+              </p>
+            </div>
+            <div className="relative aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center border border-muted/50 overflow-hidden">
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
+              <Leaf className="w-32 h-32 text-primary opacity-80" />
+            </div>
+          </div>
+        </section>
+
+        {/* Platform Section */}
+        <section id="platform" className="mt-32 pt-20 border-t border-muted/30 text-left max-w-5xl mx-auto">
+          <div className="space-y-6 text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-blue-500/10 text-blue-500 border-blue-500/20">
+              The Platform
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">An End-to-End Circular Engine</h2>
+            <p className="text-lg text-muted-foreground">
+              Everything you need to turn scrap materials into high-margin products.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="bg-card/50 backdrop-blur-sm border-muted/50">
+              <CardContent className="p-8 space-y-4">
+                <div className="w-10 h-10 rounded bg-secondary flex items-center justify-center mb-6">
+                  <Layers className="w-5 h-5 text-foreground" />
+                </div>
+                <h3 className="text-xl font-semibold">1. Command Center</h3>
+                <p className="text-muted-foreground">Log your waste streams into a digital inventory. The platform automatically standardizes materials and calculates their baseline scrap value.</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/50 backdrop-blur-sm border-muted/50">
+              <CardContent className="p-8 space-y-4">
+                <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center mb-6">
+                  <Factory className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold">2. Opportunity Engine</h3>
+                <p className="text-muted-foreground">Our deterministic algorithm matches your available materials against a vast knowledge base of manufacturing blueprints to discover valid products.</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/50 backdrop-blur-sm border-muted/50">
+              <CardContent className="p-8 space-y-4">
+                <div className="w-10 h-10 rounded bg-blue-500/10 flex items-center justify-center mb-6">
+                  <TrendingUp className="w-5 h-5 text-blue-500" />
+                </div>
+                <h3 className="text-xl font-semibold">3. Venture Studio</h3>
+                <p className="text-muted-foreground">Transform a product idea into a business plan. View required machinery, capital investment, estimated revenue, and break-even timelines.</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/50 backdrop-blur-sm border-muted/50">
+              <CardContent className="p-8 space-y-4">
+                <div className="w-10 h-10 rounded bg-green-500/10 flex items-center justify-center mb-6">
+                  <Leaf className="w-5 h-5 text-green-500" />
+                </div>
+                <h3 className="text-xl font-semibold">4. Executive Insights</h3>
+                <p className="text-muted-foreground">Generate McKinsey-style reports with dynamic recommendations and our signature Waste-to-Wealth Index (WWI) scoring.</p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Impact Section */}
+        <section id="impact" className="mt-32 pt-20 border-t border-muted/30 text-left max-w-5xl mx-auto mb-20">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1 grid grid-cols-2 gap-4">
+              <div className="bg-card border rounded-2xl p-6 text-center space-y-2 shadow-sm">
+                <div className="text-4xl font-bold text-primary">91</div>
+                <div className="text-sm font-medium text-muted-foreground">Avg. WWI Score</div>
+              </div>
+              <div className="bg-card border rounded-2xl p-6 text-center space-y-2 shadow-sm">
+                <div className="text-4xl font-bold text-blue-500">60%</div>
+                <div className="text-sm font-medium text-muted-foreground">Higher Margins</div>
+              </div>
+              <div className="bg-card border rounded-2xl p-6 text-center space-y-2 shadow-sm">
+                <div className="text-4xl font-bold text-green-500">95%</div>
+                <div className="text-sm font-medium text-muted-foreground">Landfill Diversion</div>
+              </div>
+              <div className="bg-card border rounded-2xl p-6 text-center space-y-2 shadow-sm">
+                <div className="text-4xl font-bold text-foreground">3x</div>
+                <div className="text-sm font-medium text-muted-foreground">Faster ROI</div>
+              </div>
+            </div>
+            <div className="order-1 md:order-2 space-y-6">
+              <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-green-500/10 text-green-500 border-green-500/20">
+                The Impact
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Measurable Sustainability</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                By evaluating opportunities not just on profitability, but also on resource utilization and carbon reduction, ReGenesis ensures that your business decisions align with global sustainability goals.
+              </p>
+              <ul className="space-y-3 mt-6">
+                <li className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center"><ArrowRight className="w-3 h-3 text-primary" /></div>
+                  <span className="font-medium text-muted-foreground">Unlock hidden financial wealth from scrap.</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center"><ArrowRight className="w-3 h-3 text-primary" /></div>
+                  <span className="font-medium text-muted-foreground">Dramatically reduce scope 3 emissions.</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center"><ArrowRight className="w-3 h-3 text-primary" /></div>
+                  <span className="font-medium text-muted-foreground">Create localized manufacturing jobs.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
   )
