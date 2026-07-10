@@ -41,7 +41,7 @@ export function ResourceIntelligence() {
             <p className="text-muted-foreground mt-1">Executive analytics and business insights derived from your inventory.</p>
           </div>
           <div className="flex items-center gap-3">
-            <Button className="gap-2"><Download className="w-4 h-4" /> Export Executive Summary</Button>
+            <Button className="gap-2" asChild><Link to="/report"><Download className="w-4 h-4" /> Export Executive Summary</Link></Button>
           </div>
         </div>
 
