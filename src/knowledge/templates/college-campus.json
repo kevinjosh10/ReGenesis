@@ -1,0 +1,6 @@
+[
+  { "id": "t1_1", "materialId": "mat_1", "quantity": 1200, "unit": "kg", "condition": "Needs Segregation", "addedAt": "2026-07-10T10:00:00Z" },
+  { "id": "t1_2", "materialId": "mat_3", "quantity": 450, "unit": "kg", "condition": "Excellent", "addedAt": "2026-07-10T10:05:00Z" },
+  { "id": "t1_3", "materialId": "mat_4", "quantity": 800, "unit": "kg", "condition": "Excellent", "addedAt": "2026-07-10T10:10:00Z" },
+  { "id": "t1_4", "materialId": "mat_2", "quantity": 300, "unit": "kg", "condition": "Processing", "addedAt": "2026-07-10T10:15:00Z" }
+]
