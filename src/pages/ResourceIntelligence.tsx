@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react"
+import { useMemo } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Leaf, TrendingUp, Award, Zap, Trees, Download } from "lucide-react"
