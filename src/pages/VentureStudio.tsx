@@ -109,7 +109,7 @@ export function VentureStudio() {
               </div>
               <div className="flex items-center gap-3">
                 <Button variant="outline" className="gap-2"><Share2 className="w-4 h-4" /> Share</Button>
-                <Button className="gap-2"><Download className="w-4 h-4" /> Export PDF</Button>
+                <Button className="gap-2" onClick={() => window.print()}><Download className="w-4 h-4" /> Export PDF</Button>
               </div>
             </div>
 
@@ -230,7 +230,7 @@ export function VentureStudio() {
                       This venture offers excellent profitability, manageable risks, and strong sustainability impact. It successfully leverages your existing resource inventory.
                     </p>
                   </div>
-                  <Button size="lg" className="px-8 mt-4"><Download className="w-4 h-4 mr-2" /> Download Full Business Plan</Button>
+                  <Button size="lg" className="px-8 mt-4" onClick={() => window.print()}><Download className="w-4 h-4 mr-2" /> Download Full Business Plan</Button>
                 </CardContent>
               </Card>
             </section>

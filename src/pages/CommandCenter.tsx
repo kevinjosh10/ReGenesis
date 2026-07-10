@@ -72,7 +72,18 @@ export function CommandCenter() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm">Export Report</Button>
+            <Button variant="outline" size="sm" onClick={() => {
+              const csvContent = "data:text/csv;charset=utf-8," 
+                + "ID,Material,Category,Quantity,Unit,Condition,Location,Scrap Value\n"
+                + resources.map(r => `${r.id},${r.material.name},${r.material.category},${r.quantity},${r.unit},${r.condition},N/A,${r.estimatedValue}`).join("\n");
+              const encodedUri = encodeURI(csvContent);
+              const link = document.createElement("a");
+              link.setAttribute("href", encodedUri);
+              link.setAttribute("download", "regenesis_inventory.csv");
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}>Export CSV</Button>
             <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-sm font-medium">JD</div>
           </div>
         </div>
