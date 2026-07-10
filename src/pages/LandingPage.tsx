@@ -3,10 +3,12 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Leaf, TrendingUp, Layers, Factory } from "lucide-react"
+import { FallingLeaves } from "@/components/ui/FallingLeaves"
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 relative">
+      <FallingLeaves />
       {/* Navbar */}
       <nav className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
