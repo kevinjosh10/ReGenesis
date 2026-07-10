@@ -100,15 +100,27 @@ export function DemoControls() {
             </div>
 
             {currentIndex === 1 && (
-              <Button 
-                variant="secondary" 
-                className="w-full text-xs h-8 gap-2 bg-secondary hover:bg-secondary/80 border-dashed border border-muted-foreground/30"
-                onClick={() => {
-                  loadDemoData()
-                }}
-              >
-                <Database className="w-3 h-3" /> Load "College Campus" Dataset
-              </Button>
+              <div className="space-y-2 mt-2">
+                <div className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Demo Data</div>
+                <Button 
+                  variant="secondary" 
+                  className="w-full text-xs h-8 gap-2 bg-secondary hover:bg-secondary/80 border-dashed border border-muted-foreground/30"
+                  onClick={() => {
+                    loadDemoData('college-campus')
+                  }}
+                >
+                  <Database className="w-3 h-3" /> Load College Campus
+                </Button>
+                <Button 
+                  variant="secondary" 
+                  className="w-full text-xs h-8 gap-2 bg-secondary hover:bg-secondary/80 border-dashed border border-muted-foreground/30"
+                  onClick={() => {
+                    loadDemoData('manufacturing-plant')
+                  }}
+                >
+                  <Database className="w-3 h-3" /> Load Mfg Plant
+                </Button>
+              </div>
             )}
           </motion.div>
         )}
