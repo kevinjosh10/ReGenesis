@@ -1,11 +1,48 @@
+import { useState, useMemo } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Leaf, TrendingUp, Award, Zap, Trees, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { useResourceStore } from "@/store/useResourceStore"
+import { useOpportunityStore } from "@/store/useOpportunityStore"
 
 export function ResourceIntelligence() {
+  const { getPopulatedResources, resources } = useResourceStore()
+  const { discoveredOpportunities } = useOpportunityStore()
+
+  // Calculate top resource
+  const { topResource, topResourcePercentage } = useMemo(() => {
+    const popRes = getPopulatedResources()
+    if (popRes.length === 0) return { topResource: null, topResourcePercentage: 0 }
+    const totalQty = popRes.reduce((sum, r) => sum + r.quantity, 0)
+    
+    // Group by material
+    const materialCounts: Record<string, typeof popRes[0]> = {}
+    const materialQuantities: Record<string, number> = {}
+    
+    popRes.forEach(r => {
+      materialCounts[r.materialId] = r
+      materialQuantities[r.materialId] = (materialQuantities[r.materialId] || 0) + r.quantity
+    })
+    
+    let topId = ''
+    let maxQ = 0
+    for (const [id, q] of Object.entries(materialQuantities)) {
+      if (q > maxQ) {
+        maxQ = q
+        topId = id
+      }
+    }
+    
+    return {
+      topResource: materialCounts[topId],
+      topResourcePercentage: (maxQ / totalQty) * 100
+    }
+  }, [getPopulatedResources])
+
+  const topOpp = discoveredOpportunities[0]
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 pb-20">
       {/* Top Navigation */}
@@ -177,29 +214,54 @@ export function ResourceIntelligence() {
                   <div className="space-y-2">
                     <h4 className="font-medium text-primary">The Resource Story</h4>
                     <p className="text-muted-foreground text-sm leading-relaxed">
-                      Your inventory is dominated by <strong className="text-foreground">Plastic</strong>, which represents 42% of total resources. By prioritizing <strong className="text-foreground">Plastic Lumber manufacturing</strong>, your organization can maximize both revenue and sustainability while reducing landfill dependency by over 90%.
+                      {resources.length === 0 ? (
+                        "Your inventory is currently empty. Add resources to discover insights."
+                      ) : (
+                        <>
+                          {topResource && topResourcePercentage > 40 ? (
+                            <span>Your inventory is dominated by <strong className="text-foreground">{topResource.material.name}</strong>, which represents {Math.round(topResourcePercentage)}% of total resources. </span>
+                          ) : (
+                            <span>Your inventory has a diverse mix of resources. </span>
+                          )}
+                          {topOpp && (
+                            <span>By prioritizing <strong className="text-foreground">{topOpp.product.name} manufacturing</strong>, your organization can maximize both revenue and sustainability. </span>
+                          )}
+                          {topOpp && topOpp.totalScore > 90 && (
+                            <span className="text-green-600 dark:text-green-400 font-medium">This is a high-priority venture with excellent viability. </span>
+                          )}
+                          {topOpp && topOpp.totalScore <= 90 && (
+                            <span>Consider expanding your inventory to unlock even higher-scoring opportunities. </span>
+                          )}
+                        </>
+                      )}
                     </p>
                   </div>
                   
                   <div className="space-y-3 pt-4 border-t">
-                    <div className="flex gap-3 items-start">
-                      <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0 mt-0.5">
-                        <span className="text-xs font-bold text-muted-foreground">1</span>
+                    {topResource && topResourcePercentage > 40 && (
+                      <div className="flex gap-3 items-start">
+                        <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0 mt-0.5">
+                          <span className="text-xs font-bold text-muted-foreground">1</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{topResource.material.name} contributes heavily to your resource value.</p>
                       </div>
-                      <p className="text-sm text-muted-foreground">Plastic contributes nearly half of your resource value.</p>
-                    </div>
-                    <div className="flex gap-3 items-start">
-                      <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0 mt-0.5">
-                        <span className="text-xs font-bold text-muted-foreground">2</span>
+                    )}
+                    {topOpp && topOpp.totalScore > 90 && (
+                      <div className="flex gap-3 items-start">
+                        <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0 mt-0.5">
+                          <span className="text-xs font-bold text-muted-foreground">2</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{topOpp.product.name} has a proven ROI and high market demand.</p>
                       </div>
-                      <p className="text-sm text-muted-foreground">Wood has the highest manufacturing flexibility.</p>
-                    </div>
-                    <div className="flex gap-3 items-start">
-                      <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0 mt-0.5">
-                        <span className="text-xs font-bold text-muted-foreground">3</span>
+                    )}
+                    {topOpp && (
+                      <div className="flex gap-3 items-start">
+                        <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0 mt-0.5">
+                          <span className="text-xs font-bold text-muted-foreground">3</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground">Focusing on {topOpp.product.category} unlocks the highest-value products.</p>
                       </div>
-                      <p className="text-sm text-muted-foreground">Combining plastic and metal unlocks the highest-value products.</p>
-                    </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
