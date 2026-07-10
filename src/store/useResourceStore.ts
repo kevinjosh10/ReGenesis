@@ -55,10 +55,10 @@ export const useResourceStore = create<ResourceStore>((set, get) => ({
 
   loadDemoData: () => set({
     resources: [
-      { id: '1', materialId: 'mat_1', quantity: 250, unit: 'kg', quality: 'High', addedAt: new Date().toISOString() },
-      { id: '2', materialId: 'mat_4', quantity: 80, unit: 'kg', quality: 'High', addedAt: new Date().toISOString() },
-      { id: '3', materialId: 'mat_2', quantity: 120, unit: 'kg', quality: 'Medium', addedAt: new Date().toISOString() },
-      { id: '4', materialId: 'mat_3', quantity: 40, unit: 'kg', quality: 'High', addedAt: new Date().toISOString() }
+      { id: '1', materialId: 'mat_1', quantity: 250, unit: 'kg', grade: 'A', addedAt: new Date().toISOString() },
+      { id: '2', materialId: 'mat_4', quantity: 80, unit: 'kg', grade: 'A', addedAt: new Date().toISOString() },
+      { id: '3', materialId: 'mat_2', quantity: 120, unit: 'kg', grade: 'B', addedAt: new Date().toISOString() },
+      { id: '4', materialId: 'mat_3', quantity: 40, unit: 'kg', grade: 'A', addedAt: new Date().toISOString() }
     ]
   }),
     
