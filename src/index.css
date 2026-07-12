@@ -31,6 +31,12 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-shine: shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  @keyframes shine {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
 }
 
 @layer base {
