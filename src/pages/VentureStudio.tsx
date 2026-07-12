@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useVentureStore } from "@/store/useVentureStore"
+import { useOpportunityStore } from "@/store/useOpportunityStore"
 import productsData from "@/data/products.json"
 import type { Product } from "@/types/Opportunity"
 import { Navbar } from "@/components/ui/Navbar"
@@ -21,11 +22,18 @@ export function VentureStudio() {
   const [hasDecided, setHasDecided] = useState(false)
 
   useEffect(() => {
-    // If we have an ID from the URL, load it. Otherwise, default to prod_1 for demo purposes if nothing is active.
     if (id) {
       loadVenture(id)
     } else {
-      loadVenture('prod_1')
+      // Intelligently find the best opportunity from the engine if no ID is passed
+      const state = useOpportunityStore.getState()
+      const bestOpp = state.discoveredOpportunities[0]
+      if (bestOpp) {
+        loadVenture(bestOpp.product.id)
+      } else {
+        // Fallback only if no opportunities exist
+        loadVenture('prod_1')
+      }
     }
   }, [id, loadVenture])
 

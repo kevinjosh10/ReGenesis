@@ -91,7 +91,10 @@ export const useVentureStore = create<VentureStore>((set) => ({
     );
     
     // Total quantity in kg
-    const totalQty = relevantResources.reduce((sum, r) => sum + r.quantity, 0);
+    const totalQty = relevantResources.reduce((sum, r) => {
+      const qtyInKg = r.unit === 'tons' ? r.quantity * 1000 : (r.unit === 'units' ? r.quantity : r.quantity);
+      return sum + qtyInKg;
+    }, 0);
     
     // If they have 0 inventory for this, default to a baseline of 500kg for demonstration
     const effectiveQty = totalQty > 0 ? totalQty : 500;
