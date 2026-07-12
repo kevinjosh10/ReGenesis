@@ -8,6 +8,7 @@ import { useOpportunityStore } from "@/store/useOpportunityStore"
 import { OpportunityCard } from "@/components/ui/OpportunityCard"
 import { Link } from "react-router-dom"
 import type { ResourceCategory } from "@/types/Resource"
+import materialsData from "@/data/materials.json"
 
 const CategoryIcons: Record<ResourceCategory, React.ElementType> = {
   Plastic: Package,
@@ -33,8 +34,8 @@ export function ResourceComposer() {
   const [hasGenerated, setHasGenerated] = useState(false)
   const resources = getPopulatedResources()
 
-  // Get unique categories from the user's actual inventory
-  const availableCategories = Array.from(new Set(resources.map(r => r.material.category)))
+  // Get unique categories from all available materials so users can sandbox freely
+  const availableCategories = Array.from(new Set(materialsData.map((m: any) => m.category)))
 
   const handleGenerate = () => {
     generateFromMix(resources)
