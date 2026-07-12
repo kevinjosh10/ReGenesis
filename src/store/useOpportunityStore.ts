@@ -16,12 +16,24 @@ interface OpportunityStore {
   generateFromMix: (resources: PopulatedResourceItem[]) => void;
 }
 
-function calculateScoreDetail(product: Product): OpportunityScoreDetail {
-  // Mock logic to evaluate the score components
-  const profitPotential = Math.min(30, (product.estimatedRevenuePerUnit - product.investmentCostEstimate) / 1000);
+function calculateScoreDetail(product: Product, availableCategories: Set<string>): OpportunityScoreDetail {
+  // Dynamic logic to evaluate the score components
+  // Profit Potential (Max 30)
+  const profitPotential = Math.max(0, Math.min(30, (product.estimatedRevenuePerUnit - product.investmentCostEstimate) / 5000));
+  
+  // Market Demand (Max 25)
   const marketDemand = product.demandLevel === 'High' ? 25 : product.demandLevel === 'Medium' ? 15 : 5;
-  const resourceUtilization = 18; // Mock
-  const sustainability = (product.sustainabilityScore / 100) * 15;
+  
+  // Resource Utilization (Max 20)
+  // How many of the product's compatible materials do we actually have?
+  const matchedCount = product.compatibleMaterials.filter(cat => availableCategories.has(cat as any)).length;
+  const utilizationRatio = matchedCount / product.compatibleMaterials.length;
+  const resourceUtilization = Math.round(utilizationRatio * 20);
+
+  // Sustainability (Max 15)
+  const sustainability = Math.round((product.sustainabilityScore / 100) * 15);
+  
+  // Investment Feasibility (Max 10)
   const investment = product.investmentCostLevel === 'Low' ? 10 : product.investmentCostLevel === 'Medium' ? 7 : 3;
 
   return {
@@ -47,7 +59,7 @@ export const useOpportunityStore = create<OpportunityStore>((set) => ({
 
     // 2. Map them to DiscoveredOpportunity and calculate scores
     const opportunities: DiscoveredOpportunity[] = possibleProducts.map(product => {
-      const scoreDetails = calculateScoreDetail(product);
+      const scoreDetails = calculateScoreDetail(product, availableCategories);
       const totalScore = Math.round(
         scoreDetails.profitPotential + 
         scoreDetails.marketDemand + 
@@ -65,7 +77,7 @@ export const useOpportunityStore = create<OpportunityStore>((set) => ({
         totalScore,
         matchedResourceIds: matchedResources.map(r => r.id),
         estimatedProfit: product.estimatedRevenuePerUnit - product.investmentCostEstimate,
-        confidence: Math.round(75 + (totalScore / 5)) // mock
+        confidence: Math.round(Math.min(99, 75 + (totalScore / 5))) // Cap at 99%
       };
     });
 
@@ -102,8 +114,9 @@ export const useOpportunityStore = create<OpportunityStore>((set) => ({
           return product.compatibleMaterials.some(reqCat => selectedMixerCategories.includes(reqCat));
         });
   
+        const availableMixSet = new Set(selectedMixerCategories);
         const opportunities: DiscoveredOpportunity[] = possibleProducts.map(product => {
-          const scoreDetails = calculateScoreDetail(product);
+          const scoreDetails = calculateScoreDetail(product, availableMixSet);
           
           let totalScore = Math.round(
             scoreDetails.profitPotential + 

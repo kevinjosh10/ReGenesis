@@ -39,12 +39,16 @@ export function DemoControls() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
-      if (e.key === 'ArrowRight') handleNext();
-      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'ArrowRight' && currentIndex < DEMO_STEPS.length - 1) {
+        navigate(DEMO_STEPS[currentIndex + 1].path);
+      }
+      if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        navigate(DEMO_STEPS[currentIndex - 1].path);
+      }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, currentIndex])
+  }, [isOpen, currentIndex, navigate])
 
   return (
     <>
