@@ -38,9 +38,14 @@ export function OpportunityCard({ opportunity, isBest = false }: OpportunityCard
                 </div>
               </div>
               
-              <div className="text-right">
+              <div className="text-right flex flex-col items-end">
                 <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider font-medium">Opportunity Score</div>
                 <div className={`text-3xl font-bold ${isBest ? 'text-primary' : 'text-foreground'}`}>{totalScore}%</div>
+                {opportunity.synergyBonus && (
+                  <Badge variant="outline" className="mt-2 border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 gap-1 text-[10px] px-1.5 py-0">
+                    ✨ +{opportunity.synergyBonus} Synergy
+                  </Badge>
+                )}
               </div>
             </div>
 

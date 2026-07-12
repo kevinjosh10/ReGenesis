@@ -104,13 +104,41 @@ export const useOpportunityStore = create<OpportunityStore>((set) => ({
   
         const opportunities: DiscoveredOpportunity[] = possibleProducts.map(product => {
           const scoreDetails = calculateScoreDetail(product);
-          const totalScore = Math.round(
+          
+          let totalScore = Math.round(
             scoreDetails.profitPotential + 
             scoreDetails.marketDemand + 
             scoreDetails.resourceUtilization + 
             scoreDetails.sustainability + 
             scoreDetails.investment
           );
+
+          // Calculate Synergy Bonus
+          const matchedCategories = product.compatibleMaterials.filter(reqCat => 
+            selectedMixerCategories.includes(reqCat)
+          );
+          
+          const productMatchRatio = matchedCategories.length / product.compatibleMaterials.length;
+          const userUtilizationRatio = matchedCategories.length / selectedMixerCategories.length;
+          
+          let synergyBonus = 0;
+          
+          // Bonus 1: Complex products that use multiple matched materials get a massive boost
+          if (matchedCategories.length > 1) {
+            synergyBonus += matchedCategories.length * 25; 
+          }
+          
+          // Bonus 2: Perfect utilization of the user's mixing tray
+          if (userUtilizationRatio === 1 && matchedCategories.length > 1) {
+            synergyBonus += 20;
+          }
+
+          // Penalty: The product requires materials the user DIDN'T put in the tray
+          if (productMatchRatio < 1) {
+            totalScore -= 15;
+          }
+
+          totalScore += synergyBonus;
   
           // Only map resources that are in the user's inventory AND in the current selected mix
           const matchedResources = resources.filter(r => 
@@ -122,9 +150,10 @@ export const useOpportunityStore = create<OpportunityStore>((set) => ({
             product,
             scoreDetails,
             totalScore,
+            synergyBonus: synergyBonus > 0 ? synergyBonus : undefined,
             matchedResourceIds: matchedResources.map(r => r.id),
             estimatedProfit: product.estimatedRevenuePerUnit - product.investmentCostEstimate,
-            confidence: Math.round(80 + (totalScore / 5)) // mock
+            confidence: Math.round(Math.min(99, 70 + (totalScore / 5))) 
           };
         });
   

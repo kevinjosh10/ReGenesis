@@ -29,4 +29,5 @@ export interface DiscoveredOpportunity {
   matchedResourceIds: string[]; // which user resources are used for this opportunity
   estimatedProfit: number;
   confidence: number;
+  synergyBonus?: number; // Added to indicate how well the product matches multiple mixed categories
 }
