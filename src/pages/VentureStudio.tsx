@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Leaf, Download, Share2, DollarSign, Activity, Factory, Users, AlertTriangle, CheckCircle } from "lucide-react"
+import { Download, Share2, DollarSign, Activity, Factory, Users, AlertTriangle, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useVentureStore } from "@/store/useVentureStore"
 import productsData from "@/data/products.json"
 import type { Product } from "@/types/Opportunity"
+import { Navbar } from "@/components/ui/Navbar"
+import { toast } from "sonner"
 
 const MOCK_PRODUCTS = productsData as Product[];
 
@@ -45,28 +47,7 @@ export function VentureStudio() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 pb-20">
-      {/* Top Navigation */}
-      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10 sticky top-0">
-        <div className="container mx-auto px-6 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="font-semibold tracking-tight">ReGenesis</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-1 border rounded-md p-1 bg-muted/50">
-              <Link to="/dashboard" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Inventory</Link>
-              <Link to="/opportunities" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Engine</Link>
-              <Link to="/composer" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Composer</Link>
-              <div className="px-3 py-1 text-sm font-medium bg-background rounded shadow-sm">Studio</div>
-              <Link to="/intelligence" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Insights</Link>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <main className="flex-1 container mx-auto px-6 pt-12 space-y-8 max-w-4xl">
         
@@ -108,7 +89,10 @@ export function VentureStudio() {
               </div>
               <div className="flex items-center gap-3">
                 <Button variant="outline" className="gap-2"><Share2 className="w-4 h-4" /> Share</Button>
-                <Button className="gap-2" onClick={() => window.print()}><Download className="w-4 h-4" /> Export PDF</Button>
+                <Button className="gap-2" onClick={() => {
+                  window.print()
+                  toast.success("📄 Business Plan exported successfully")
+                }}><Download className="w-4 h-4" /> Export PDF</Button>
               </div>
             </div>
 
@@ -229,7 +213,10 @@ export function VentureStudio() {
                       This venture offers excellent profitability, manageable risks, and strong sustainability impact. It successfully leverages your existing resource inventory.
                     </p>
                   </div>
-                  <Button size="lg" className="px-8 mt-4" onClick={() => window.print()}><Download className="w-4 h-4 mr-2" /> Download Full Business Plan</Button>
+                  <Button size="lg" className="px-8 mt-4" onClick={() => {
+                    window.print()
+                    toast.success("📄 Business Plan exported successfully")
+                  }}><Download className="w-4 h-4 mr-2" /> Download Full Business Plan</Button>
                 </CardContent>
               </Card>
             </section>

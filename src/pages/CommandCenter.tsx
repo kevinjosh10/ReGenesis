@@ -8,9 +8,10 @@ import { Input } from "@/components/ui/input"
 import { Select } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { useResourceStore } from "@/store/useResourceStore"
+import { toast } from "sonner"
 import type { ResourceCategory, ResourceStatus } from "@/types/Resource"
-import { Link } from "react-router-dom"
 import materialsData from "@/data/materials.json"
+import { Navbar } from "@/components/ui/Navbar"
 
 const CategoryIcons: Record<ResourceCategory, React.ElementType> = {
   Plastic: Package,
@@ -49,44 +50,27 @@ export function CommandCenter() {
       condition: formData.condition
     })
     setIsAddModalOpen(false)
+    toast.success(`✨ ${formData.quantity}${formData.unit} of resource added successfully!`)
   }
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30">
       {/* Top Navigation */}
-      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10 sticky top-0">
-        <div className="container mx-auto px-6 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="font-semibold tracking-tight">ReGenesis</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-1 border rounded-md p-1 bg-muted/50">
-              <div className="px-3 py-1 text-sm font-medium bg-background rounded shadow-sm">Inventory</div>
-              <Link to="/opportunities" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Engine</Link>
-              <Link to="/composer" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Composer</Link>
-              <Link to="/studio" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Studio</Link>
-              <Link to="/intelligence" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Insights</Link>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" onClick={() => {
-              const csvContent = "data:text/csv;charset=utf-8," 
-                + "ID,Material,Category,Quantity,Unit,Condition,Location,Scrap Value\n"
-                + resources.map(r => `${r.id},${r.material.name},${r.material.category},${r.quantity},${r.unit},${r.condition},N/A,${r.estimatedValue}`).join("\n");
-              const encodedUri = encodeURI(csvContent);
-              const link = document.createElement("a");
-              link.setAttribute("href", encodedUri);
-              link.setAttribute("download", "regenesis_inventory.csv");
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-            }}>Export CSV</Button>
-          </div>
-        </div>
-      </nav>
+      <Navbar actions={
+        <Button variant="outline" size="sm" onClick={() => {
+          const csvContent = "data:text/csv;charset=utf-8," 
+            + "ID,Material,Category,Quantity,Unit,Condition,Location,Scrap Value\n"
+            + resources.map(r => `${r.id},${r.material.name},${r.material.category},${r.quantity},${r.unit},${r.condition},N/A,${r.estimatedValue}`).join("\n");
+          const encodedUri = encodeURI(csvContent);
+          const link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", "regenesis_inventory.csv");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          toast.success("📄 Report exported successfully")
+        }}>Export CSV</Button>
+      } />
 
       <main className="flex-1 container mx-auto px-6 py-8 space-y-8">
         

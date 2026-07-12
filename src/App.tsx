@@ -9,9 +9,12 @@ import { ExecutiveReport } from "./pages/ExecutiveReport"
 import { DemoControls } from "./components/ui/DemoControls"
 import { IntroSplash } from "./components/ui/IntroSplash"
 
+import { Toaster } from 'sonner'
+import { ThemeProvider } from './components/ThemeProvider'
+
 export default function App() {
   return (
-    <>
+    <ThemeProvider defaultTheme="dark" storageKey="regenesis-theme">
       <IntroSplash />
       <Router>
         <Routes>
@@ -26,6 +29,7 @@ export default function App() {
         </Routes>
         <DemoControls />
       </Router>
-    </>
+      <Toaster position="bottom-right" richColors />
+    </ThemeProvider>
   )
 }

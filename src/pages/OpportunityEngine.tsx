@@ -7,6 +7,7 @@ import { OpportunityCard } from "@/components/ui/OpportunityCard"
 import { useResourceStore } from "@/store/useResourceStore"
 import { useOpportunityStore } from "@/store/useOpportunityStore"
 import { Link } from "react-router-dom"
+import { Navbar } from "@/components/ui/Navbar"
 
 export function OpportunityEngine() {
   const { getPopulatedResources } = useResourceStore()
@@ -24,27 +25,7 @@ export function OpportunityEngine() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30">
       {/* Top Navigation */}
-      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10 sticky top-0">
-        <div className="container mx-auto px-6 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="font-semibold tracking-tight">ReGenesis</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-1 border rounded-md p-1 bg-muted/50">
-              <Link to="/dashboard" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Inventory</Link>
-              <div className="px-3 py-1 text-sm font-medium bg-background rounded shadow-sm">Engine</div>
-              <Link to="/composer" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Composer</Link>
-              <Link to="/studio" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Studio</Link>
-              <Link to="/intelligence" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Insights</Link>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <main className="flex-1 container mx-auto px-6 py-8 space-y-8">
         

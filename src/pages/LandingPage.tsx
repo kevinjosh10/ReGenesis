@@ -5,8 +5,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Leaf, TrendingUp, Layers, Factory } from "lucide-react"
 import { AnimatedGradient } from "@/components/ui/AnimatedGradient"
 import { FallingLeaves } from "@/components/ui/FallingLeaves"
+import { useTheme } from "@/components/ThemeProvider"
+import { Sun, Moon } from "lucide-react"
 
 export function LandingPage() {
+  const { theme, setTheme } = useTheme()
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 relative">
       <AnimatedGradient />
@@ -26,6 +29,14 @@ export function LandingPage() {
             <a href="#impact" className="hover:text-foreground transition-colors">Impact</a>
           </div>
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              aria-label="Toggle theme"
+            >
+              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-muted-foreground" />
+              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-muted-foreground" />
+            </button>
             <Button variant="ghost" className="hidden sm:inline-flex">Sign In</Button>
             <Button asChild>
               <Link to="/dashboard">Get Started</Link>

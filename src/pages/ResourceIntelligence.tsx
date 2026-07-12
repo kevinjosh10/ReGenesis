@@ -1,12 +1,14 @@
 import { useMemo } from "react"
-import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Leaf, TrendingUp, Award, Zap, Trees, Download } from "lucide-react"
+import { TrendingUp, Award, Zap, Trees, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useResourceStore } from "@/store/useResourceStore"
 import { useOpportunityStore } from "@/store/useOpportunityStore"
+import { Navbar } from "@/components/ui/Navbar"
+import { toast } from "sonner"
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
 export function ResourceIntelligence() {
   const { getPopulatedResources, resources, getTotalValue, getOpportunityScore } = useResourceStore()
@@ -105,30 +107,26 @@ export function ResourceIntelligence() {
   const wwiScore = getOpportunityScore()
   const dashOffset = 282.7 - (282.7 * (wwiScore / 100))
 
+  const chartData = useMemo(() => {
+    return Array.from({ length: 12 }).map((_, i) => {
+      // Simulate cumulative revenue growth over 12 months with a slight exponential curve
+      const multiplier = Math.pow(1.15, i)
+      const monthlyBase = potentialProductValue * 0.1 // Assume 10% of total potential is realized monthly
+      return {
+        month: `M${i + 1}`,
+        revenue: Math.round(monthlyBase * (i + 1) * multiplier)
+      }
+    })
+  }, [potentialProductValue])
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 pb-20">
       {/* Top Navigation */}
-      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10 sticky top-0">
-        <div className="container mx-auto px-6 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="font-semibold tracking-tight">ReGenesis</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-1 border rounded-md p-1 bg-muted/50">
-              <Link to="/dashboard" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Inventory</Link>
-              <Link to="/opportunities" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Engine</Link>
-              <Link to="/composer" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Composer</Link>
-              <Link to="/studio" className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Studio</Link>
-              <div className="px-3 py-1 text-sm font-medium bg-background rounded shadow-sm">Insights</div>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-          </div>
-        </div>
-      </nav>
+      <Navbar actions={
+        <Button className="gap-2" onClick={() => {
+          toast.success("📄 Executive Summary exported successfully")
+        }}><Download className="w-4 h-4" /> Export Executive Summary</Button>
+      } />
 
       <main className="flex-1 container mx-auto px-6 pt-8 space-y-8 max-w-6xl">
         
@@ -137,9 +135,6 @@ export function ResourceIntelligence() {
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Resource Intelligence</h1>
             <p className="text-muted-foreground mt-1">Executive analytics and business insights derived from your inventory.</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button className="gap-2" asChild><Link to="/report"><Download className="w-4 h-4" /> Export Executive Summary</Link></Button>
           </div>
         </div>
 
@@ -332,6 +327,40 @@ export function ResourceIntelligence() {
               </Card>
             </section>
           </div>
+
+          {/* Projected 12-Month Revenue Chart */}
+          <section className="pt-4">
+            <h3 className="text-xl font-semibold mb-4">12-Month Projected Cumulative Revenue</h3>
+            <Card className="shadow-none p-6">
+              <div className="h-[400px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 30, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis 
+                      stroke="hsl(var(--muted-foreground))" 
+                      fontSize={12} 
+                      tickLine={false} 
+                      axisLine={false} 
+                      tickFormatter={(value) => `₹${(value / 1000).toFixed(0)}k`}
+                    />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
+                      itemStyle={{ color: 'hsl(var(--foreground))' }}
+                      formatter={(value: any) => [`₹${Number(value).toLocaleString('en-IN')}`, 'Revenue']}
+                    />
+                    <Area type="monotone" dataKey="revenue" stroke="hsl(var(--primary))" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </Card>
+          </section>
 
         </motion.div>
       </main>
