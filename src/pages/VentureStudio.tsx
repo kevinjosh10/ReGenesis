@@ -130,7 +130,7 @@ export function VentureStudio() {
                   window.print()
                   toast.success("📄 Business Plan exported successfully")
                 }}><Download className="w-4 h-4" /> Export PDF</Button>
-                <Button className="gap-2" disabled={isGeneratingDeck} onClick={handleGenerateDeck}>
+                <Button className="gap-2 min-w-[170px]" disabled={isGeneratingDeck} onClick={handleGenerateDeck}>
                   {isGeneratingDeck ? <Loader2 className="w-4 h-4 animate-spin" /> : <Presentation className="w-4 h-4" />}
                   {isGeneratingDeck ? 'Generating...' : 'Export Pitch Deck'}
                 </Button>
