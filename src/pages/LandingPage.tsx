@@ -53,11 +53,7 @@ export function LandingPage() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="max-w-4xl mx-auto space-y-8"
         >
-          <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground">
-            Introducing the Circular Economy Engine
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance leading-tight mt-12">
             Don't Manage Waste. <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-600">
               Discover Wealth.
