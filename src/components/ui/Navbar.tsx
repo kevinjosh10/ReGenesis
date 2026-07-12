@@ -35,14 +35,20 @@ export function Navbar({ actions }: NavbarProps) {
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10 sticky top-0">
       <div className="container mx-auto px-6 h-14 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
-            <Leaf className="w-4 h-4 text-primary-foreground" />
-          </div>
-          <span className="font-semibold tracking-tight">ReGenesis</span>
-        </Link>
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-1 border rounded-md p-1 bg-muted/50">
+        
+        {/* Left Side */}
+        <div className="flex flex-1 items-center justify-start">
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
+              <Leaf className="w-4 h-4 text-primary-foreground" />
+            </div>
+            <span className="font-semibold tracking-tight hidden sm:block">ReGenesis</span>
+          </Link>
+        </div>
+
+        {/* Center Nav Links */}
+        <div className="flex items-center justify-center shrink-0">
+          <div className="hidden md:flex items-center gap-1 border rounded-md p-1 bg-muted/50 shadow-sm">
             <NavLink to="/dashboard" label="Inventory" />
             <NavLink to="/opportunities" label="Engine" />
             <NavLink to="/composer" label="Composer" />
@@ -50,8 +56,10 @@ export function Navbar({ actions }: NavbarProps) {
             <NavLink to="/intelligence" label="Insights" />
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          {actions}
+
+        {/* Right Side Actions */}
+        <div className="flex flex-1 items-center justify-end gap-4">
+          <div className="hidden sm:flex">{actions}</div>
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
