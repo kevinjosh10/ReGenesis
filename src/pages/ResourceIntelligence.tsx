@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { motion } from "framer-motion"
-import { TrendingUp, Award, Zap, Trees, Download } from "lucide-react"
+import { TrendingUp, Award, Zap, Trees, Download, TreePine, Droplet, Leaf, Factory } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"

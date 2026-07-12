@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Leaf, Plus, Package, Factory, TrendingUp, AlertTriangle, Cpu, Droplet, TreePine, Sparkles } from "lucide-react"
+import { Leaf, Plus, Package, Factory, TrendingUp, Cpu, Droplet, TreePine } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
