@@ -12,22 +12,23 @@ export function FallingLeaves() {
   if (!isClient) return null
 
   // Generate an array of leaves with random starting positions and animation durations
-  const leaves = Array.from({ length: 30 }).map((_, i) => {
+  const [leaves] = useState(() => Array.from({ length: 30 }).map((_, i) => {
     const startX = Math.random() * 100 // 0 to 100vw
     const duration = Math.random() * 10 + 10 // 10 to 20 seconds
     const delay = Math.random() * -20 // random start time so they don't all fall at once
     const size = Math.random() * 2 + 1.5 // scale between 1.5 and 3.5
     const sway = Math.random() * 30 + 10 // x drift between 10 and 40vw
+    const endX = startX + (Math.random() > 0.5 ? sway : -sway)
     
     return {
       id: i,
       startX,
+      endX,
       duration,
       delay,
       size,
-      sway,
     }
-  })
+  }))
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1] opacity-70 dark:opacity-60">
@@ -41,7 +42,7 @@ export function FallingLeaves() {
           }}
           animate={{
             y: "110vh",
-            x: `${leaf.startX + (Math.random() > 0.5 ? leaf.sway : -leaf.sway)}vw`,
+            x: `${leaf.endX}vw`,
             rotate: 360,
           }}
           transition={{
