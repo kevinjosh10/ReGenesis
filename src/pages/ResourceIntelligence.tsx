@@ -231,6 +231,109 @@ export function ResourceIntelligence() {
             </Card>
           </section>
 
+          {/* Global Impact & Logistics */}
+          <section className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-1 space-y-4">
+              <h3 className="text-xl font-semibold">Global Impact</h3>
+              <div className="space-y-4">
+                <Card className="shadow-none bg-green-500/5 border-green-500/20">
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
+                      <TreePine className="w-5 h-5 text-green-600 dark:text-green-400" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-green-700/70 dark:text-green-400/70 uppercase tracking-widest">Trees Saved</div>
+                      <div className="text-2xl font-bold text-green-700 dark:text-green-400">{useResourceStore().getEnvironmentalImpact().treesSaved.toLocaleString('en-IN')}</div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="shadow-none bg-blue-500/5 border-blue-500/20">
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
+                      <Droplet className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-blue-700/70 dark:text-blue-400/70 uppercase tracking-widest">Water Conserved</div>
+                      <div className="text-2xl font-bold text-blue-700 dark:text-blue-400">{useResourceStore().getEnvironmentalImpact().waterConservedLiters.toLocaleString('en-IN')} L</div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="shadow-none bg-slate-500/5 border-slate-500/20">
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-slate-500/10 flex items-center justify-center shrink-0">
+                      <Leaf className="w-5 h-5 text-slate-600 dark:text-slate-400" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-slate-700/70 dark:text-slate-400/70 uppercase tracking-widest">CO₂ Prevented</div>
+                      <div className="text-2xl font-bold text-slate-700 dark:text-slate-400">{useResourceStore().getEnvironmentalImpact().co2PreventedKg.toLocaleString('en-IN')} kg</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 space-y-4">
+              <h3 className="text-xl font-semibold">Geospatial Logistics</h3>
+              <Card className="shadow-none overflow-hidden relative group">
+                <div className="absolute inset-0 bg-slate-900/5 dark:bg-slate-900/50 pointer-events-none z-10 rounded-xl" />
+                <CardContent className="p-0 h-[320px] relative bg-[#1e293b] flex items-center justify-center">
+                  {/* Mock Map Background */}
+                  <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1"/>
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)" />
+                  </svg>
+                  
+                  {/* Map Connections */}
+                  <svg className="absolute inset-0 w-full h-full z-20" preserveAspectRatio="none">
+                    <motion.path 
+                      d="M 20% 70% Q 40% 30% 75% 40%" 
+                      fill="none" 
+                      stroke="#10b981" 
+                      strokeWidth="2"
+                      strokeDasharray="5 5"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    />
+                    <motion.path 
+                      d="M 30% 20% Q 50% 10% 75% 40%" 
+                      fill="none" 
+                      stroke="#10b981" 
+                      strokeWidth="2"
+                      strokeDasharray="5 5"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                    />
+                  </svg>
+
+                  {/* Nodes */}
+                  <div className="absolute top-[70%] left-[20%] -translate-x-1/2 -translate-y-1/2 z-30">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full animate-ping absolute opacity-75" />
+                    <div className="w-4 h-4 bg-blue-500 rounded-full relative z-10 border-2 border-white shadow-lg" />
+                    <div className="absolute top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-white bg-black/50 px-2 py-0.5 rounded backdrop-blur-sm">Collection Zone A</div>
+                  </div>
+                  <div className="absolute top-[20%] left-[30%] -translate-x-1/2 -translate-y-1/2 z-30">
+                    <div className="w-4 h-4 bg-blue-500 rounded-full animate-ping absolute opacity-75" />
+                    <div className="w-4 h-4 bg-blue-500 rounded-full relative z-10 border-2 border-white shadow-lg" />
+                    <div className="absolute top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-white bg-black/50 px-2 py-0.5 rounded backdrop-blur-sm">Collection Zone B</div>
+                  </div>
+                  <div className="absolute top-[40%] left-[75%] -translate-x-1/2 -translate-y-1/2 z-30">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full relative z-10 border-2 border-white shadow-lg flex items-center justify-center">
+                      <Factory className="w-3 h-3 text-white" />
+                    </div>
+                    <div className="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-bold text-white bg-emerald-600 px-3 py-1 rounded backdrop-blur-sm shadow-xl">Processing Hub</div>
+                  </div>
+                  
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
           {/* Hidden Wealth Analysis & Resource Story */}
           <div className="grid lg:grid-cols-2 gap-8">
             <section className="space-y-4">
