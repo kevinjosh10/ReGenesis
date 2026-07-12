@@ -34,7 +34,7 @@ export function Navbar({ actions }: NavbarProps) {
 
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10 sticky top-0">
-      <div className="container mx-auto px-6 h-14 flex items-center justify-between">
+      <div className="container relative mx-auto px-6 h-14 flex items-center justify-between">
         
         {/* Left Side */}
         <div className="flex flex-1 items-center justify-start">
@@ -46,8 +46,8 @@ export function Navbar({ actions }: NavbarProps) {
           </Link>
         </div>
 
-        {/* Center Nav Links */}
-        <div className="flex items-center justify-center shrink-0">
+        {/* Center Nav Links - Absolutely positioned for flawless centering */}
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center shrink-0">
           <div className="hidden md:flex items-center gap-1 border rounded-md p-1 bg-muted/50 shadow-sm">
             <NavLink to="/dashboard" label="Inventory" />
             <NavLink to="/opportunities" label="Engine" />
