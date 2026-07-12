@@ -71,7 +71,23 @@ export const useResourceStore = create<ResourceStore>((set, get) => ({
       // Fallback in case material is deleted
       const safeMaterial = material || { id: 'unknown', name: 'Unknown', category: 'Plastic', baseValuePerKg: 0, recoverability: 0 };
       
-      const estimatedValue = res.quantity * safeMaterial.baseValuePerKg * (safeMaterial.recoverability / 100);
+      // Calculate quantity in kg
+      const qtyInKg = res.unit === 'tons' ? res.quantity * 1000 : (res.unit === 'units' ? res.quantity : res.quantity);
+      
+      // Condition multiplier
+      let conditionMultiplier = 1;
+      switch (res.condition) {
+        case 'Excellent': conditionMultiplier = 1.0; break;
+        case 'Processing': conditionMultiplier = 0.8; break;
+        case 'Needs Segregation': conditionMultiplier = 0.5; break;
+        case 'Contaminated': conditionMultiplier = 0.2; break;
+      }
+      
+      // We calculate raw value based on total kg * baseValuePerKg
+      const rawValue = qtyInKg * safeMaterial.baseValuePerKg;
+      
+      // Finally, adjust for recoverability and condition
+      const estimatedValue = rawValue * (safeMaterial.recoverability / 100) * conditionMultiplier;
       
       return {
         ...res,
