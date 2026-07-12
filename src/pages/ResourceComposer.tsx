@@ -33,14 +33,20 @@ export function ResourceComposer() {
   } = useOpportunityStore()
   
   const [hasGenerated, setHasGenerated] = useState(false)
+  const [isScanning, setIsScanning] = useState(false)
   const resources = getPopulatedResources()
 
   // Get unique categories from all available materials so users can sandbox freely
   const availableCategories = Array.from(new Set(materialsData.map((m: any) => m.category)))
 
   const handleGenerate = () => {
-    generateFromMix(resources)
-    setHasGenerated(true)
+    setIsScanning(true)
+    setHasGenerated(false)
+    setTimeout(() => {
+      generateFromMix(resources)
+      setHasGenerated(true)
+      setIsScanning(false)
+    }, 1200)
   }
 
   return (
@@ -114,9 +120,17 @@ export function ResourceComposer() {
             {/* Mixing Tray */}
             <div className="p-6 rounded-2xl border bg-card relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-emerald-500 to-teal-500 opacity-50" />
-              <h3 className="text-lg font-medium mb-4">Mixing Tray</h3>
+              {isScanning && (
+                <motion.div 
+                  className="absolute inset-0 bg-primary/5 z-0 pointer-events-none"
+                  animate={{ y: ['-100%', '100%'] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+                  style={{ borderBottom: '2px solid hsl(var(--primary))' }}
+                />
+              )}
+              <h3 className="text-lg font-medium mb-4 relative z-10">Mixing Tray</h3>
               
-              <div className="min-h-[120px] p-6 rounded-xl bg-secondary/30 border border-dashed border-muted-foreground/30 flex flex-wrap gap-3 items-center justify-center relative">
+              <div className="min-h-[120px] p-6 rounded-xl bg-secondary/30 border border-dashed border-muted-foreground/30 flex flex-wrap gap-3 items-center justify-center relative z-10">
                 <AnimatePresence>
                   {selectedMixerCategories.length === 0 && (
                     <motion.div 
@@ -150,16 +164,16 @@ export function ResourceComposer() {
                 </AnimatePresence>
               </div>
 
-              <div className="mt-6 flex justify-center">
+              <div className="mt-6 flex justify-center relative z-10">
                 <Button 
                   size="lg" 
-                  className="px-8 rounded-full shadow-md gap-2 group relative overflow-hidden"
+                  className={`px-8 rounded-full shadow-md gap-2 group relative overflow-hidden transition-all ${isScanning ? 'bg-primary/80 scale-95' : ''}`}
                   onClick={handleGenerate}
-                  disabled={selectedMixerCategories.length === 0}
+                  disabled={selectedMixerCategories.length === 0 || isScanning}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Sparkles className="w-4 h-4 relative z-10" /> 
-                  <span className="relative z-10">Generate Opportunities</span>
+                  {!isScanning && <div className="absolute inset-0 bg-gradient-to-r from-primary to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />}
+                  {isScanning ? <Cpu className="w-4 h-4 animate-pulse relative z-10" /> : <Sparkles className="w-4 h-4 relative z-10" />}
+                  <span className="relative z-10">{isScanning ? 'Analyzing Combinations...' : 'Generate Opportunities'}</span>
                 </Button>
               </div>
             </div>
