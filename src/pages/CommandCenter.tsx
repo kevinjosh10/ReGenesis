@@ -84,7 +84,6 @@ export function CommandCenter() {
               link.click();
               document.body.removeChild(link);
             }}>Export CSV</Button>
-            <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-sm font-medium">JD</div>
           </div>
         </div>
       </nav>

@@ -63,7 +63,6 @@ export function ResourceComposer() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-sm font-medium">JD</div>
           </div>
         </div>
       </nav>
