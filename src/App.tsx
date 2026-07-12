@@ -3,7 +3,7 @@ import { LandingPage } from "./pages/LandingPage"
 import { CommandCenter } from "./pages/CommandCenter"
 import { OpportunityEngine } from "./pages/OpportunityEngine"
 import { ResourceComposer } from "./pages/ResourceComposer"
-import { VentureStudio } from "./pages/VentureStudio"
+
 import { ResourceIntelligence } from "./pages/ResourceIntelligence"
 import { ExecutiveReport } from "./pages/ExecutiveReport"
 import { DemoControls } from "./components/ui/DemoControls"
@@ -22,8 +22,7 @@ export default function App() {
           <Route path="/dashboard" element={<CommandCenter />} />
           <Route path="/opportunities" element={<OpportunityEngine />} />
           <Route path="/composer" element={<ResourceComposer />} />
-          <Route path="/studio" element={<VentureStudio />} />
-          <Route path="/studio/:id" element={<VentureStudio />} />
+
           <Route path="/intelligence" element={<ResourceIntelligence />} />
           <Route path="/report" element={<ExecutiveReport />} />
         </Routes>

@@ -52,7 +52,6 @@ export function Navbar({ actions }: NavbarProps) {
             <NavLink to="/dashboard" label="Inventory" />
             <NavLink to="/opportunities" label="Engine" />
             <NavLink to="/composer" label="Composer" />
-            <NavLink to="/studio" label="Studio" />
             <NavLink to="/intelligence" label="Insights" />
           </div>
         </div>

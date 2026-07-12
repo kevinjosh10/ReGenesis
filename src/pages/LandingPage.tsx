@@ -174,7 +174,7 @@ export function LandingPage() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             <Card className="bg-card/50 backdrop-blur-sm border-muted/50">
               <CardContent className="p-8 space-y-4">
                 <div className="w-10 h-10 rounded bg-secondary flex items-center justify-center mb-6">
@@ -193,21 +193,13 @@ export function LandingPage() {
                 <p className="text-muted-foreground">Our deterministic algorithm matches your available materials against a vast knowledge base of manufacturing blueprints to discover valid products.</p>
               </CardContent>
             </Card>
-            <Card className="bg-card/50 backdrop-blur-sm border-muted/50">
-              <CardContent className="p-8 space-y-4">
-                <div className="w-10 h-10 rounded bg-emerald-500/10 flex items-center justify-center mb-6">
-                  <TrendingUp className="w-5 h-5 text-emerald-500" />
-                </div>
-                <h3 className="text-xl font-semibold">3. Venture Studio</h3>
-                <p className="text-muted-foreground">Transform a product idea into a business plan. View required machinery, capital investment, estimated revenue, and break-even timelines.</p>
-              </CardContent>
-            </Card>
+
             <Card className="bg-card/50 backdrop-blur-sm border-muted/50">
               <CardContent className="p-8 space-y-4">
                 <div className="w-10 h-10 rounded bg-green-500/10 flex items-center justify-center mb-6">
                   <Leaf className="w-5 h-5 text-green-500" />
                 </div>
-                <h3 className="text-xl font-semibold">4. Executive Insights</h3>
+                <h3 className="text-xl font-semibold">3. Executive Insights</h3>
                 <p className="text-muted-foreground">Generate McKinsey-style reports with dynamic recommendations and our signature Waste-to-Wealth Index (WWI) scoring.</p>
               </CardContent>
             </Card>

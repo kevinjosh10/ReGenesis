@@ -36,10 +36,9 @@ A deterministic intelligence algorithm that analyzes your logged materials again
 ### 3. 🧪 Resource Composer
 A sandbox environment allowing you to experiment with combining multiple waste streams (e.g., Plastic + Metal) to unlock advanced composite products and uncover new cross-industry opportunities.
 
-### 4. 🏢 Venture Studio
-Transform a raw product idea into a complete, exportable business plan. Understand the required machinery, initial capital investment, estimated revenue, break-even timelines, and instantly export a highly polished PDF Pitch Deck.
 
-### 5. 📊 Executive Insights (Resource Intelligence)
+
+### 4. 📊 Executive Insights (Resource Intelligence)
 Generate McKinsey-style executive reports. Track your **Waste-to-Wealth Index (WWI)**, evaluate 12-month projected cumulative revenue with dynamic charts, and measure direct global impact such as $CO_2$ prevented and water conserved.
 
 <br />
