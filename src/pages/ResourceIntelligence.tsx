@@ -9,22 +9,39 @@ import { useResourceStore } from "@/store/useResourceStore"
 import { useOpportunityStore } from "@/store/useOpportunityStore"
 
 export function ResourceIntelligence() {
-  const { getPopulatedResources, resources } = useResourceStore()
+  const { getPopulatedResources, resources, getTotalValue, getOpportunityScore } = useResourceStore()
   const { discoveredOpportunities } = useOpportunityStore()
 
-  // Calculate top resource
-  const { topResource, topResourcePercentage } = useMemo(() => {
+  // Dynamic Calculations
+  const { 
+    topResource, 
+    topResourcePercentage, 
+    highestValueResource,
+    currentScrapValue
+  } = useMemo(() => {
     const popRes = getPopulatedResources()
-    if (popRes.length === 0) return { topResource: null, topResourcePercentage: 0 }
+    if (popRes.length === 0) return { 
+      topResource: null, 
+      topResourcePercentage: 0, 
+      highestValueResource: null,
+      currentScrapValue: 0
+    }
+    
     const totalQty = popRes.reduce((sum, r) => sum + r.quantity, 0)
+    const currentScrapValue = getTotalValue()
     
     // Group by material
     const materialCounts: Record<string, typeof popRes[0]> = {}
     const materialQuantities: Record<string, number> = {}
     
+    let highestValueResource = popRes[0]
+
     popRes.forEach(r => {
       materialCounts[r.materialId] = r
       materialQuantities[r.materialId] = (materialQuantities[r.materialId] || 0) + r.quantity
+      if (r.estimatedValue > highestValueResource.estimatedValue) {
+        highestValueResource = r
+      }
     })
     
     let topId = ''
@@ -38,11 +55,56 @@ export function ResourceIntelligence() {
     
     return {
       topResource: materialCounts[topId],
-      topResourcePercentage: (maxQ / totalQty) * 100
+      topResourcePercentage: (maxQ / totalQty) * 100,
+      highestValueResource,
+      currentScrapValue
     }
-  }, [getPopulatedResources])
+  }, [getPopulatedResources, getTotalValue])
 
-  const topOpp = discoveredOpportunities[0]
+  // Opportunity Insights
+  const {
+    topOpp,
+    fastestRoiOpp,
+    highestCarbonOpp,
+    potentialProductValue
+  } = useMemo(() => {
+    if (discoveredOpportunities.length === 0) return {
+      topOpp: null, fastestRoiOpp: null, highestCarbonOpp: null, potentialProductValue: 0
+    }
+
+    const topOpp = discoveredOpportunities[0]
+    let fastestRoiOpp = topOpp
+    let minBreakEven = Infinity
+    let highestCarbonOpp = topOpp
+
+    discoveredOpportunities.forEach(opp => {
+      // Proxy break even
+      const breakEven = Math.ceil(opp.product.investmentCostEstimate / Math.max(1, opp.estimatedProfit))
+      if (breakEven < minBreakEven) {
+        minBreakEven = breakEven
+        fastestRoiOpp = opp
+      }
+
+      if (opp.product.carbonSavedKg > highestCarbonOpp.product.carbonSavedKg) {
+        highestCarbonOpp = opp
+      }
+    })
+
+    // Calculate potential value based on the best opportunity. 
+    // Assuming you can convert the entire inventory volume applicable to this product.
+    const relevantQty = getPopulatedResources()
+      .filter(r => topOpp.product.compatibleMaterials.includes(r.material.category as any))
+      .reduce((sum, r) => sum + r.quantity, 0)
+    
+    const units = Math.floor(relevantQty / 50) || 1
+    const potentialProductValue = units * topOpp.product.estimatedRevenuePerUnit
+
+    return { topOpp, fastestRoiOpp: { opp: fastestRoiOpp, months: minBreakEven }, highestCarbonOpp, potentialProductValue }
+  }, [discoveredOpportunities, getPopulatedResources])
+
+  const wwiScore = getOpportunityScore()
+  const dashOffset = 282.7 - (282.7 * (wwiScore / 100))
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary/30 pb-20">
       {/* Top Navigation */}
@@ -102,12 +164,12 @@ export function ResourceIntelligence() {
                       strokeLinecap="round"
                       strokeDasharray="282.7" 
                       initial={{ strokeDashoffset: 282.7 }}
-                      animate={{ strokeDashoffset: 282.7 - (282.7 * 0.91) }}
+                      animate={{ strokeDashoffset: dashOffset }}
                       transition={{ duration: 1.5, ease: "easeOut" }}
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <span className="text-5xl font-bold">91</span>
+                    <span className="text-5xl font-bold">{wwiScore}</span>
                     <span className="text-sm font-medium text-muted-foreground">/ 100</span>
                   </div>
                 </div>
@@ -115,10 +177,12 @@ export function ResourceIntelligence() {
                   <div className="text-sm text-primary font-semibold uppercase tracking-widest mb-2">Signature KPI</div>
                   <h2 className="text-3xl font-bold">Waste-to-Wealth Index (WWI)</h2>
                   <div className="inline-flex items-center gap-2 mt-3 mb-4">
-                    <Badge variant="success" className="px-3 py-1 text-sm bg-green-500/15 text-green-700 dark:text-green-400">Excellent</Badge>
+                    <Badge variant={wwiScore > 85 ? "success" : "warning"} className="px-3 py-1 text-sm bg-green-500/15 text-green-700 dark:text-green-400">
+                      {wwiScore > 85 ? 'Excellent' : 'Good'}
+                    </Badge>
                   </div>
                   <p className="text-muted-foreground text-lg max-w-2xl">
-                    Your resource inventory has outstanding economic potential. You are highly positioned to convert available waste streams into high-margin products with minimal landfill dependency.
+                    Your resource inventory has {wwiScore > 85 ? 'outstanding' : 'strong'} economic potential. You are positioned to convert available waste streams into high-margin products with minimal landfill dependency.
                   </p>
                 </div>
               </CardContent>
@@ -133,8 +197,8 @@ export function ResourceIntelligence() {
                 <TrendingUp className="w-4 h-4 text-emerald-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-xl font-bold">Plastic</div>
-                <div className="text-sm text-muted-foreground mt-1">₹1,42,000 Potential</div>
+                <div className="text-xl font-bold">{highestValueResource?.material.name || 'N/A'}</div>
+                <div className="text-sm text-muted-foreground mt-1">₹{highestValueResource?.estimatedValue.toLocaleString('en-IN') || 0} Potential</div>
               </CardContent>
             </Card>
             
@@ -144,8 +208,8 @@ export function ResourceIntelligence() {
                 <Award className="w-4 h-4 text-yellow-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-xl font-bold">Plastic Lumber</div>
-                <div className="text-sm text-muted-foreground mt-1">96% Opportunity Score</div>
+                <div className="text-xl font-bold truncate" title={topOpp?.product.name}>{topOpp?.product.name || 'N/A'}</div>
+                <div className="text-sm text-muted-foreground mt-1">{topOpp?.totalScore || 0}% Opportunity Score</div>
               </CardContent>
             </Card>
             
@@ -155,8 +219,8 @@ export function ResourceIntelligence() {
                 <Zap className="w-4 h-4 text-amber-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-xl font-bold">Eco Bricks</div>
-                <div className="text-sm text-muted-foreground mt-1">4 Months Break-even</div>
+                <div className="text-xl font-bold truncate" title={fastestRoiOpp?.opp.product.name}>{fastestRoiOpp?.opp.product.name || 'N/A'}</div>
+                <div className="text-sm text-muted-foreground mt-1">{fastestRoiOpp?.months || 0} Months Break-even</div>
               </CardContent>
             </Card>
             
@@ -166,8 +230,8 @@ export function ResourceIntelligence() {
                 <Trees className="w-4 h-4 text-green-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-xl font-bold">Construction Panels</div>
-                <div className="text-sm text-muted-foreground mt-1">1.8 Tons CO₂ Saved</div>
+                <div className="text-xl font-bold truncate" title={highestCarbonOpp?.product.name}>{highestCarbonOpp?.product.name || 'N/A'}</div>
+                <div className="text-sm text-muted-foreground mt-1">{highestCarbonOpp?.product.carbonSavedKg || 0}kg CO₂ Saved</div>
               </CardContent>
             </Card>
           </section>
@@ -181,7 +245,7 @@ export function ResourceIntelligence() {
                   <div className="flex flex-col space-y-6">
                     <div>
                       <div className="text-sm font-medium text-muted-foreground">Current Scrap Value</div>
-                      <div className="text-3xl font-bold mt-1">₹38,000</div>
+                      <div className="text-3xl font-bold mt-1">₹{currentScrapValue.toLocaleString('en-IN')}</div>
                     </div>
                     
                     <div className="flex items-center gap-4">
@@ -194,12 +258,14 @@ export function ResourceIntelligence() {
 
                     <div>
                       <div className="text-sm font-medium text-muted-foreground">Potential Product Value</div>
-                      <div className="text-4xl font-bold mt-1 text-primary">₹1,52,000</div>
+                      <div className="text-4xl font-bold mt-1 text-primary">₹{potentialProductValue.toLocaleString('en-IN')}</div>
                     </div>
                     
                     <div className="pt-4 border-t border-primary/20">
                       <div className="text-sm font-medium uppercase tracking-widest text-primary">Hidden Wealth Discovered</div>
-                      <div className="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">+ ₹1,14,000</div>
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">
+                        + ₹{Math.max(0, potentialProductValue - currentScrapValue).toLocaleString('en-IN')}
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -266,49 +332,6 @@ export function ResourceIntelligence() {
               </Card>
             </section>
           </div>
-
-          {/* Opportunity Heatmap */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-semibold">Opportunity Heatmap</h3>
-            <Card className="shadow-none overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left">
-                  <thead className="bg-secondary/50 text-muted-foreground">
-                    <tr>
-                      <th className="px-6 py-4 font-medium">Resource</th>
-                      <th className="px-6 py-4 font-medium text-center">Construction</th>
-                      <th className="px-6 py-4 font-medium text-center">Furniture</th>
-                      <th className="px-6 py-4 font-medium text-center">Packaging</th>
-                      <th className="px-6 py-4 font-medium text-center">Consumer</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y">
-                    <tr className="hover:bg-muted/30 transition-colors">
-                      <td className="px-6 py-4 font-medium">Plastic</td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-green-500 mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-green-500 mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-green-500 mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-yellow-400 mx-auto"></div></td>
-                    </tr>
-                    <tr className="hover:bg-muted/30 transition-colors">
-                      <td className="px-6 py-4 font-medium">Wood</td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-yellow-400 mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-green-500 mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-secondary mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-green-500 mx-auto"></div></td>
-                    </tr>
-                    <tr className="hover:bg-muted/30 transition-colors">
-                      <td className="px-6 py-4 font-medium">Metal</td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-green-500 mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-green-500 mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-secondary mx-auto"></div></td>
-                      <td className="px-6 py-4 text-center"><div className="w-3 h-3 rounded-full bg-yellow-400 mx-auto"></div></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </Card>
-          </section>
 
         </motion.div>
       </main>
