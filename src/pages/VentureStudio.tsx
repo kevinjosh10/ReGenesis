@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Download, Share2, DollarSign, Activity, Factory, Users, AlertTriangle, CheckCircle } from "lucide-react"
+import { Download, Share2, DollarSign, Activity, Factory, Users, AlertTriangle, CheckCircle, Presentation, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -11,6 +11,7 @@ import productsData from "@/data/products.json"
 import type { Product } from "@/types/Opportunity"
 import { Navbar } from "@/components/ui/Navbar"
 import { toast } from "sonner"
+import confetti from "canvas-confetti"
 
 const MOCK_PRODUCTS = productsData as Product[];
 
@@ -20,6 +21,7 @@ export function VentureStudio() {
   
   // Storytelling state: Has the user decided to explore the analysis?
   const [hasDecided, setHasDecided] = useState(false)
+  const [isGeneratingDeck, setIsGeneratingDeck] = useState(false)
 
   useEffect(() => {
     if (id) {
@@ -36,6 +38,33 @@ export function VentureStudio() {
       }
     }
   }, [id, loadVenture])
+
+  const handleYes = () => {
+    setHasDecided(true)
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ['#10b981', '#3b82f6', '#f59e0b']
+    })
+  }
+
+  const handleGenerateDeck = () => {
+    setIsGeneratingDeck(true);
+    toast.loading("Compiling financial models...", { id: 'deck' });
+    setTimeout(() => {
+      toast.loading("Structuring market analysis...", { id: 'deck' });
+      setTimeout(() => {
+        setIsGeneratingDeck(false);
+        toast.success("✨ Investor Pitch Deck generated successfully!", { id: 'deck' });
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }, 1500);
+    }, 1500);
+  }
 
   if (!activeVenture) {
     return (
@@ -77,7 +106,7 @@ export function VentureStudio() {
             <div className="p-8 border rounded-2xl bg-card shadow-sm w-full max-w-xl mx-auto mt-8">
               <h2 className="text-2xl font-semibold mb-6">Would you invest in this opportunity?</h2>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="w-full sm:w-auto px-10 text-lg" onClick={() => setHasDecided(true)}>YES, Show Me How</Button>
+                <Button size="lg" className="w-full sm:w-auto px-10 text-lg" onClick={handleYes}>YES, Show Me How</Button>
                 <Button size="lg" variant="outline" className="w-full sm:w-auto px-10 text-lg" onClick={() => setHasDecided(true)}>NOT SURE, Let's Analyze</Button>
               </div>
             </div>
@@ -95,12 +124,16 @@ export function VentureStudio() {
                 <h1 className="text-3xl font-bold tracking-tight">{product.name} Manufacturing</h1>
                 <p className="text-muted-foreground mt-1">Comprehensive Business Feasibility Report</p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <Button variant="outline" className="gap-2"><Share2 className="w-4 h-4" /> Share</Button>
-                <Button className="gap-2" onClick={() => {
+                <Button variant="outline" className="gap-2" onClick={() => {
                   window.print()
                   toast.success("📄 Business Plan exported successfully")
                 }}><Download className="w-4 h-4" /> Export PDF</Button>
+                <Button className="gap-2" disabled={isGeneratingDeck} onClick={handleGenerateDeck}>
+                  {isGeneratingDeck ? <Loader2 className="w-4 h-4 animate-spin" /> : <Presentation className="w-4 h-4" />}
+                  {isGeneratingDeck ? 'Generating...' : 'Export Pitch Deck'}
+                </Button>
               </div>
             </div>
 
