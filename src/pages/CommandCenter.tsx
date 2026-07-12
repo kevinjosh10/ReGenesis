@@ -228,19 +228,6 @@ export function CommandCenter() {
             <Card className="shadow-none">
               <CardContent className="p-4 space-y-5">
                 
-                {/* Key Observation */}
-                <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 to-indigo-500/10 p-4 rounded-xl border border-primary/20 shadow-inner">
-                  <div className="absolute top-0 right-0 p-2 opacity-10">
-                    <Sparkles className="w-12 h-12" />
-                  </div>
-                  <div className="text-sm font-medium flex items-center gap-2 mb-2 text-primary">
-                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" /> AI Insight
-                  </div>
-                  <div className="text-sm leading-relaxed">
-                    <span className="font-semibold text-foreground">Plastic</span> contributes <span className="font-semibold text-primary">46%</span> of total value. Segregating e-waste could add an additional <span className="font-semibold text-emerald-500">15%</span> to your margins.
-                  </div>
-                </div>
-
                 {/* Category Breakdown */}
                 <div>
                   <div className="text-sm font-medium mb-3">Category Breakdown</div>
