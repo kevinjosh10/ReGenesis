@@ -71,13 +71,13 @@ export function IntroSplash() {
             <div className="overflow-hidden relative">
               {/* Light Sweep Effect */}
               <motion.div 
-                className="absolute inset-0 w-12 bg-white/30 blur-md skew-x-[-20deg] z-10"
-                initial={{ x: "-100%" }}
-                animate={{ x: "400%" }}
+                className="absolute top-0 bottom-0 w-24 bg-white/30 blur-md skew-x-[-20deg] z-10"
+                initial={{ left: "-50%" }}
+                animate={{ left: "150%" }}
                 transition={{ duration: 1.5, delay: 2, ease: "easeInOut" }}
               />
 
-              <div className="flex text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-foreground via-foreground to-muted-foreground">
+              <div className="flex text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-primary to-emerald-700">
                 {"ReGenesis".split("").map((char, index) => (
                   <motion.span
                     key={index}
