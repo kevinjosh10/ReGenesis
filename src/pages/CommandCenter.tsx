@@ -1,5 +1,6 @@
 import React, { useState } from "react"
-import { Leaf, Plus, Package, Factory, TrendingUp, AlertTriangle, Cpu, Droplet, TreePine } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Leaf, Plus, Package, Factory, TrendingUp, AlertTriangle, Cpu, Droplet, TreePine, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -76,59 +77,78 @@ export function CommandCenter() {
         
         {/* Executive Summary */}
         <section>
-          <h2 className="text-2xl font-semibold tracking-tight mb-4">Command Center</h2>
+          <motion.h2 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-2xl font-semibold tracking-tight mb-4"
+          >
+            Command Center
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="bg-card shadow-none">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Resource Inventory Value</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">₹{totalValue.toLocaleString('en-IN')}</div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Estimated recoverable value <span className="text-green-500 font-medium">↑12%</span>
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+              <Card className="bg-primary/5 border-primary/20 shadow-sm hover:shadow-md transition-all">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium text-primary">Resource Inventory Value</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-primary" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-foreground">₹{totalValue.toLocaleString('en-IN')}</div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Estimated recoverable value <span className="text-green-500 font-medium">↑12%</span>
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="bg-card shadow-none">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Circular Economy Score</CardTitle>
-                <Leaf className="h-4 w-4 text-green-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{circularScore}%</div>
-                <div className="h-2 w-full bg-secondary rounded-full mt-2 overflow-hidden">
-                  <div className="h-full bg-green-500 rounded-full" style={{ width: `${circularScore}%` }} />
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+              <Card className="bg-card shadow-sm hover:shadow-md transition-all">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Circular Economy Score</CardTitle>
+                  <Leaf className="h-4 w-4 text-green-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold">{circularScore}%</div>
+                  <div className="h-2 w-full bg-secondary rounded-full mt-2 overflow-hidden">
+                    <motion.div 
+                      className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full" 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${circularScore}%` }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="bg-card shadow-none">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Manufacturing Potential</CardTitle>
-                <Factory className="h-4 w-4 text-emerald-500" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">High</div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  12 products can be manufactured.
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+              <Card className="bg-card shadow-sm hover:shadow-md transition-all">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Manufacturing Potential</CardTitle>
+                  <Factory className="h-4 w-4 text-emerald-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">High</div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    12 products can be manufactured.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="bg-card shadow-none">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Opportunity Score</CardTitle>
-                <TrendingUp className="h-4 w-4 text-primary" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{opportunityScore}%</div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Excellent resource utilization.
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+              <Card className="bg-card shadow-sm hover:shadow-md transition-all">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Opportunity Score</CardTitle>
+                  <TrendingUp className="h-4 w-4 text-blue-500" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{opportunityScore}%</div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Excellent resource utilization.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </section>
 
@@ -145,44 +165,53 @@ export function CommandCenter() {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-2 pb-2 styled-scrollbar">
-              {resources.map(res => {
-                const Icon = CategoryIcons[res.material.category] || Package;
-                return (
-                  <Card key={res.id} className="group hover:border-primary/50 transition-colors shadow-none cursor-pointer">
-                    <CardContent className="p-5 space-y-4">
-                      <div className="flex justify-between items-start">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                            <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              <AnimatePresence>
+                {resources.map((res, index) => {
+                  const Icon = CategoryIcons[res.material.category] || Package;
+                  return (
+                    <motion.div
+                      key={res.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      <Card className="group hover:border-primary/50 hover:shadow-md transition-all shadow-sm cursor-pointer h-full">
+                        <CardContent className="p-5 space-y-4">
+                          <div className="flex justify-between items-start">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                              </div>
+                              <div>
+                                <div className="font-semibold">{res.material.name}</div>
+                                <div className="text-sm text-muted-foreground">{res.material.category}</div>
+                              </div>
+                            </div>
+                            <Badge variant={res.condition === 'Excellent' ? 'success' : res.condition === 'Needs Segregation' ? 'warning' : 'secondary'} className="shadow-sm">
+                              {res.condition}
+                            </Badge>
                           </div>
-                          <div>
-                            <div className="font-semibold">{res.material.name}</div>
-                            <div className="text-sm text-muted-foreground">{res.material.category}</div>
+                          
+                          <div className="grid grid-cols-3 gap-2 pt-2 border-t">
+                            <div>
+                              <div className="text-xs text-muted-foreground">Quantity</div>
+                              <div className="font-medium text-sm">{res.quantity} {res.unit}</div>
+                            </div>
+                            <div>
+                              <div className="text-xs text-muted-foreground">Est. Value</div>
+                              <div className="font-medium text-sm text-green-600 dark:text-green-400">₹{res.estimatedValue.toLocaleString('en-IN')}</div>
+                            </div>
+                            <div>
+                              <div className="text-xs text-muted-foreground">Recoverability</div>
+                              <div className="font-medium text-sm">{res.material.recoverability}%</div>
+                            </div>
                           </div>
-                        </div>
-                        <Badge variant={res.condition === 'Excellent' ? 'success' : res.condition === 'Needs Segregation' ? 'warning' : 'secondary'}>
-                          {res.condition}
-                        </Badge>
-                      </div>
-                      
-                      <div className="grid grid-cols-3 gap-2 pt-2 border-t">
-                        <div>
-                          <div className="text-xs text-muted-foreground">Quantity</div>
-                          <div className="font-medium text-sm">{res.quantity} {res.unit}</div>
-                        </div>
-                        <div>
-                          <div className="text-xs text-muted-foreground">Est. Value</div>
-                          <div className="font-medium text-sm">₹{res.estimatedValue.toLocaleString('en-IN')}</div>
-                        </div>
-                        <div>
-                          <div className="text-xs text-muted-foreground">Recoverability</div>
-                          <div className="font-medium text-sm">{res.material.recoverability}%</div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-              })}
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  )
+                })}
+              </AnimatePresence>
               {resources.length === 0 && (
                 <div className="col-span-2 p-8 text-center border rounded-xl border-dashed">
                   <Package className="w-8 h-8 mx-auto text-muted-foreground mb-3" />
@@ -200,12 +229,15 @@ export function CommandCenter() {
               <CardContent className="p-4 space-y-5">
                 
                 {/* Key Observation */}
-                <div className="bg-secondary/40 p-3 rounded-lg border border-secondary">
-                  <div className="text-sm font-medium flex items-center gap-2 mb-1.5">
-                    <AlertTriangle className="w-4 h-4 text-primary" /> Key Observation
+                <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 to-indigo-500/10 p-4 rounded-xl border border-primary/20 shadow-inner">
+                  <div className="absolute top-0 right-0 p-2 opacity-10">
+                    <Sparkles className="w-12 h-12" />
                   </div>
-                  <div className="text-sm leading-relaxed text-muted-foreground">
-                    <span className="font-medium text-foreground">Plastic</span> contributes <span className="font-medium text-foreground">46%</span> of total value. Segregating e-waste could add 15%.
+                  <div className="text-sm font-medium flex items-center gap-2 mb-2 text-primary">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" /> AI Insight
+                  </div>
+                  <div className="text-sm leading-relaxed">
+                    <span className="font-semibold text-foreground">Plastic</span> contributes <span className="font-semibold text-primary">46%</span> of total value. Segregating e-waste could add an additional <span className="font-semibold text-emerald-500">15%</span> to your margins.
                   </div>
                 </div>
 
