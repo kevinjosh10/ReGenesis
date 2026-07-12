@@ -25,6 +25,7 @@ export default function App() {
 
           <Route path="/intelligence" element={<ResourceIntelligence />} />
           <Route path="/report" element={<ExecutiveReport />} />
+          <Route path="*" element={<LandingPage />} />
         </Routes>
         <DemoControls />
       </Router>
