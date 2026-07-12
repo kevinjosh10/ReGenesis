@@ -23,17 +23,16 @@ export function IntroSplash() {
           exit={{ opacity: 0, scale: 1.5, filter: "blur(10px)" }} // Fly-through exit effect
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="fixed inset-0 z-[9999] bg-background flex flex-col items-center justify-center overflow-hidden"
-          style={{ perspective: 1000 }} // Enable 3D perspective
         >
           {/* Cinematic Vignette */}
           <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)] z-10" />
 
-          {/* Main 3D Container - Dollies in slowly */}
+          {/* Main Container - Dollies in slowly with scale for maximum smoothness */}
           <motion.div 
             className="relative flex flex-col items-center justify-center z-20"
-            initial={{ z: -500, rotateX: 20 }}
-            animate={{ z: 200, rotateX: 0 }}
-            transition={{ duration: 6, ease: "linear" }} // Constant forward motion
+            initial={{ scale: 0.85, y: 20 }}
+            animate={{ scale: 1.1, y: 0 }}
+            transition={{ duration: 6, ease: "easeOut" }}
           >
             {/* Logo Animation */}
             <motion.div
@@ -78,16 +77,16 @@ export function IntroSplash() {
                 transition={{ duration: 1.5, delay: 2, ease: "easeInOut" }}
               />
 
-              <div className="flex text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/70">
+              <div className="flex text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-foreground via-foreground to-muted-foreground drop-shadow-2xl">
                 {"ReGenesis".split("").map((char, index) => (
                   <motion.span
                     key={index}
-                    initial={{ opacity: 0, y: 50, rotateX: -90 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    initial={{ opacity: 0, y: 40, scale: 0.8 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{
-                      duration: 0.8,
-                      delay: 1 + index * 0.1, // Staggered delay
-                      ease: "easeOut"
+                      duration: 1,
+                      delay: 1 + index * 0.08, // Staggered delay
+                      ease: [0.2, 0.65, 0.3, 0.9] // Smooth custom ease out
                     }}
                     style={{ display: "inline-block" }}
                   >
