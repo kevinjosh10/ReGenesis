@@ -243,6 +243,42 @@ export function CommandCenter() {
                   </div>
                 </div>
 
+                {/* Environmental Impact Widget */}
+                <div className="pt-4 border-t">
+                  <div className="text-sm font-medium mb-3 flex items-center gap-2">
+                    <TreePine className="w-4 h-4 text-green-500" /> Environmental Impact
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center">
+                        <TreePine className="w-4 h-4 text-green-500" />
+                      </div>
+                      <div>
+                        <div className="text-xs text-muted-foreground">Trees Saved</div>
+                        <div className="text-sm font-semibold">{useResourceStore().getEnvironmentalImpact().treesSaved.toLocaleString('en-IN')}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center">
+                        <Droplet className="w-4 h-4 text-blue-500" />
+                      </div>
+                      <div>
+                        <div className="text-xs text-muted-foreground">Water Conserved (Liters)</div>
+                        <div className="text-sm font-semibold">{useResourceStore().getEnvironmentalImpact().waterConservedLiters.toLocaleString('en-IN')}L</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-slate-500/10 flex items-center justify-center">
+                        <Leaf className="w-4 h-4 text-slate-500" />
+                      </div>
+                      <div>
+                        <div className="text-xs text-muted-foreground">CO₂ Prevented</div>
+                        <div className="text-sm font-semibold">{useResourceStore().getEnvironmentalImpact().co2PreventedKg.toLocaleString('en-IN')} kg</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </CardContent>
             </Card>
           </div>
