@@ -19,7 +19,7 @@ export function OpportunityCard({ opportunity, isBest = false }: OpportunityCard
   return (
     <motion.div layout transition={{ duration: 0.3, ease: 'easeInOut' }}>
       <Card 
-        className={`overflow-hidden cursor-pointer transition-colors shadow-none ${isBest ? 'border-primary shadow-sm bg-primary/5 hover:border-primary' : 'hover:border-primary/50'}`}
+        className={`overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-md active:scale-[0.99] ${isBest ? 'border-primary shadow-sm bg-primary/5 hover:border-primary' : 'hover:border-primary/50'}`}
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <CardContent className="p-0">
