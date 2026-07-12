@@ -9,8 +9,6 @@ export function FallingLeaves() {
     setIsClient(true)
   }, [])
 
-  if (!isClient) return null
-
   // Generate an array of leaves with random starting positions and animation durations
   const [leaves] = useState(() => Array.from({ length: 30 }).map((_, i) => {
     const startX = Math.random() * 100 // 0 to 100vw
@@ -29,6 +27,8 @@ export function FallingLeaves() {
       size,
     }
   }))
+
+  if (!isClient) return null
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1] opacity-70 dark:opacity-60">
