@@ -69,13 +69,12 @@ export function IntroSplash() {
 
             {/* Cinematic Text Reveal (Character by Character) */}
               <motion.div 
-                className="flex text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-[length:250%_100%]"
+                className="flex text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-[length:200%_auto]"
                 style={{
-                  backgroundImage: "linear-gradient(90deg, #34d399 0%, #10b981 40%, #ffffff 50%, #10b981 60%, #047857 100%)"
+                  backgroundImage: "linear-gradient(to right, #10b981, #059669, #34d399, #10b981, #059669, #10b981)"
                 }}
-                initial={{ backgroundPosition: "150% center" }}
-                animate={{ backgroundPosition: "-50% center" }}
-                transition={{ duration: 2, delay: 2, ease: "easeInOut" }}
+                animate={{ backgroundPosition: ["0% center", "200% center"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               >
                 {"ReGenesis".split("").map((char, index) => (
                   <motion.span
