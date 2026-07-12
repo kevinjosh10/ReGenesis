@@ -83,11 +83,21 @@ export const useResourceStore = create<ResourceStore>((set, get) => ({
         case 'Contaminated': conditionMultiplier = 0.2; break;
       }
       
+      // Market Scarcity Multiplier - adds dynamic market simulation
+      let marketPremium = 1.0;
+      switch (safeMaterial.category) {
+        case 'Electronic': marketPremium = 2.4; break;
+        case 'Metal': marketPremium = 1.8; break;
+        case 'Plastic': marketPremium = 1.2; break;
+        case 'Paper': marketPremium = 1.1; break;
+        default: marketPremium = 1.0; break;
+      }
+      
       // We calculate raw value based on total kg * baseValuePerKg
       const rawValue = qtyInKg * safeMaterial.baseValuePerKg;
       
-      // Finally, adjust for recoverability and condition
-      const estimatedValue = rawValue * (safeMaterial.recoverability / 100) * conditionMultiplier;
+      // Finally, adjust for recoverability, condition, and market premium
+      const estimatedValue = rawValue * (safeMaterial.recoverability / 100) * conditionMultiplier * marketPremium;
       
       return {
         ...res,
