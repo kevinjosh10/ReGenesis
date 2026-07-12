@@ -22,6 +22,7 @@ interface ResourceStore {
   getTotalValue: () => number;
   getCircularScore: () => number;
   getOpportunityScore: () => number;
+  getEnvironmentalImpact: () => { treesSaved: number; waterConservedLiters: number; co2PreventedKg: number; };
 }
 
 export const useResourceStore = create<ResourceStore>((set, get) => ({
@@ -124,5 +125,32 @@ export const useResourceStore = create<ResourceStore>((set, get) => ({
     const score = get().getCircularScore();
     // Some arbitrary mock formula
     return Math.min(100, score + 4);
+  },
+
+  getEnvironmentalImpact: () => {
+    const pop = get().getPopulatedResources();
+    let treesSaved = 0;
+    let waterConservedLiters = 0;
+    let co2PreventedKg = 0;
+
+    pop.forEach(res => {
+      const qtyInKg = res.unit === 'tons' ? res.quantity * 1000 : (res.unit === 'units' ? res.quantity : res.quantity);
+      
+      // CO2 prevented is generally universal for recycling
+      co2PreventedKg += qtyInKg * 2.5;
+
+      if (res.material.category === 'Paper' || res.material.category === 'Wood') {
+        treesSaved += qtyInKg / 50; // Roughly 1 tree per 50kg
+      }
+      if (res.material.category === 'Plastic' || res.material.category === 'Metal') {
+        waterConservedLiters += qtyInKg * 45; // Roughly 45L saved per kg compared to virgin production
+      }
+    });
+
+    return {
+      treesSaved: Math.round(treesSaved),
+      waterConservedLiters: Math.round(waterConservedLiters),
+      co2PreventedKg: Math.round(co2PreventedKg)
+    };
   }
 }));
