@@ -77,7 +77,7 @@ export function IntroSplash() {
                 transition={{ duration: 1.5, delay: 2, ease: "easeInOut" }}
               />
 
-              <div className="flex text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-foreground via-foreground to-muted-foreground drop-shadow-2xl">
+              <div className="flex text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-foreground via-foreground to-muted-foreground">
                 {"ReGenesis".split("").map((char, index) => (
                   <motion.span
                     key={index}
