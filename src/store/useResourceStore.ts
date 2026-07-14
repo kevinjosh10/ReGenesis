@@ -26,24 +26,7 @@ interface ResourceStore {
 }
 
 export const useResourceStore = create<ResourceStore>((set, get) => ({
-  resources: [
-    {
-      id: 'res_1',
-      materialId: 'mat_1',
-      quantity: 250,
-      unit: 'kg',
-      condition: 'Excellent',
-      addedAt: new Date().toISOString()
-    },
-    {
-      id: 'res_2',
-      materialId: 'mat_2',
-      quantity: 45,
-      unit: 'kg',
-      condition: 'Needs Segregation',
-      addedAt: new Date(Date.now() - 86400000).toISOString()
-    }
-  ],
+  resources: [],
   
   addResource: (resource) => set((state) => ({
     resources: [
